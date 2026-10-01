@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#087a43" />
+  <title>সদস্য লগইন | মানবসেবা ফাউন্ডেশন</title>
+
+  <style>
+    :root {
+      --primary: #087a43;
+      --primary-dark: #045a31;
+      --bg: #f1f8f3;
+      --card: #ffffff;
+      --text: #17251d;
+      --muted: #68776e;
+      --border: #d8e7dd;
+      --success-bg: #e5f7eb;
+      --success-text: #0c6a34;
+      --error-bg: #fff0f0;
+      --error-text: #ad2525;
+      --warning-bg: #fff8df;
+      --warning-text: #896000;
+    }
+
+    body.dark {
+      --primary: #32c878;
+      --primary-dark: #15985a;
+      --bg: #101813;
+      --card: #18251d;
+      --text: #edf8f0;
+      --muted: #aab9af;
+      --border: #2d4435;
+      --success-bg: #123d24;
+      --success-text: #a0f4bb;
+      --error-bg: #442020;
+      --error-text: #ffc5c5;
+      --warning-bg: #4b3d19;
+      --warning-text: #ffe28d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 22px;
+      color: var(--text);
+      font-family: "Noto Sans Bengali", "Hind Siliguri", Arial, sans-serif;
+      background:
+        linear-gradient(135deg, rgba(3, 73, 36, 0.91), rgba(8, 122, 67, 0.72)),
+        url("https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=1600&q=85")
+        center/cover;
+    }
+
+    .login-card {
+      width: min(440px, 100%);
+      padding: 36px 31px;
+      border-radius: 19px;
+      background: var(--card);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+    }
+
+    .logo {
+      display: grid;
+      place-items: center;
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 14px;
+      border-radius: 50%;
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), #2bb96e);
+      font-size: 1.65rem;
+      font-weight: 800;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.6rem;
+      line-height: 1.3;
+    }
+
+    .subtitle {
+      margin: 7px 0 26px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .message {
+      display: none;
+      margin-bottom: 17px;
+      padding: 12px;
+      border-radius: 9px;
+      font-size: 0.88rem;
+      line-height: 1.65;
+    }
+
+    .message.error {
+      display: block;
+      color: var(--error-text);
+      background: var(--error-bg);
+    }
+
+    .message.success {
+      display: block;
+      color: var(--success-text);
+      background: var(--success-bg);
+    }
+
+    .message.warning {
+      display: block;
+      color: var(--warning-text);
+      background: var(--warning-bg);
+    }
+
+    label {
+      display: block;
+      margin: 16px 0 7px;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      outline: none;
+      color: var(--text);
+      background: var(--bg);
+      font: inherit;
+    }
+
+    input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(8, 122, 67, 0.13);
+    }
+
+    .login-btn {
+      width: 100%;
+      margin-top: 22px;
+      padding: 13px;
+      border: none;
+      border-radius: 9px;
+      color: #fff;
+      background: var(--primary);
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .login-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .login-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.72;
+      transform: none;
+    }
+
+    .links {
+      display: grid;
+      gap: 12px;
+      margin-top: 22px;
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    .links a {
+      color: var(--primary);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .divider {
+      height: 1px;
+      margin: 3px 0;
+      background: var(--border);
+    }
+
+    .theme-btn {
+      position: fixed;
+      right: 18px;
+      top: 18px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: 10px;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.16);
+      cursor: pointer;
+      font: inherit;
+    }
+  </style>
+</head>
+
+<body>
+  <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">🌙 থিম</button>
+
+  <main class="login-card">
+    <div class="logo">ম</div>
+
+    <h1>সদস্য লগইন</h1>
+
+    <p class="subtitle">
+      সদস্য ড্যাশবোর্ড, নোটিশ, কার্যক্রম এবং ডিজিটাল সদস্য কার্ড দেখতে login করুন।
+    </p>
+
+    <div id="message-box" class="message"></div>
+
+    <form id="login-form">
+      <label for="email">ইমেইল ঠিকানা</label>
+      <input
+        id="email"
+        type="email"
+        placeholder="আপনার ইমেইল লিখুন"
+        required
+      />
+
+      <label for="password">পাসওয়ার্ড</label>
+      <input
+        id="password"
+        type="password"
+        placeholder="আপনার পাসওয়ার্ড লিখুন"
+        required
+      />
+
+      <button class="login-btn" id="login-btn" type="submit">
+        লগইন করুন
+      </button>
+    </form>
+
+    <div class="links">
+      <a href="member-register.html">নতুন সদস্য? আবেদন করুন</a>
+      <div class="divider"></div>
+      <a href="forgot-password.html">পাসওয়ার্ড ভুলে গেছেন?</a>
+      <a href="index.html">← মূল ওয়েবসাইটে ফিরে যান</a>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+
+  <script>
+    const form = document.getElementById("login-form");
+    const messageBox = document.getElementById("message-box");
+    const loginButton = document.getElementById("login-btn");
+
+    function showMessage(message, type) {
+      messageBox.textContent = message;
+      messageBox.className = "message " + type;
+    }
+
+    function getSupabaseClient() {
+      if (typeof supabaseClient !== "undefined") {
+        return supabaseClient;
+      }
+
+      if (window.supabaseClient) {
+        return window.supabaseClient;
+      }
+
+      return null;
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+
+      const isDark = document.body.classList.contains("dark");
+      document.getElementById("theme-btn").textContent = isDark
+        ? "☀️ থিম"
+        : "🌙 থিম";
+
+      localStorage.setItem("member-login-theme", isDark ? "dark" : "light");
+    }
+
+    if (localStorage.getItem("member-login-theme") === "dark") {
+      document.body.classList.add("dark");
+      document.getElementById("theme-btn").textContent = "☀️ থিম";
+    }
+
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const client = getSupabaseClient();
+
+      if (!client) {
+        showMessage(
+          "Supabase সংযোগ পাওয়া যায়নি। supabase-config.js ফাইলটি পরীক্ষা করুন।",
+          "error"
+        );
+        return;
+      }
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      loginButton.disabled = true;
+      loginButton.textContent = "লগইন হচ্ছে...";
+
+      const { data, error } = await client.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+      if (error) {
+        showMessage(
+          "ইমেইল বা পাসওয়ার্ড সঠিক নয়। আবার চেষ্টা করুন।",
+          "error"
+        );
+        loginButton.disabled = false;
+        loginButton.textContent = "লগইন করুন";
+        return;
+      }
+
+      const { data: profile, error: profileError } = await client
+        .from("profiles")
+        .select("full_name, role, membership_status, member_id")
+        .eq("id", data.user.id)
+        .single();
+
+      if (profileError || !profile) {
+        await client.auth.signOut();
+
+        showMessage(
+          "আপনার সদস্য profile পাওয়া যায়নি। অনুগ্রহ করে অ্যাডমিনের সঙ্গে যোগাযোগ করুন।",
+          "error"
+        );
+
+        loginButton.disabled = false;
+        loginButton.textContent = "লগইন করুন";
+        return;
+      }
+
+      if (profile.membership_status === "pending") {
+        await client.auth.signOut();
+
+        showMessage(
+          "আপনার সদস্য আবেদন জমা হয়েছে। অ্যাডমিন অনুমোদন দেওয়ার পরে লগইন করতে পারবেন।",
+          "warning"
+        );
+
+        loginButton.disabled = false;
+        loginButton.textContent = "লগইন করুন";
+        return;
+      }
+
+      if (
+        profile.membership_status === "rejected" ||
+        profile.membership_status === "suspended"
+      ) {
+        await client.auth.signOut();
+
+        showMessage(
+          "আপনার সদস্য account বর্তমানে সক্রিয় নয়। ফাউন্ডেশন কর্তৃপক্ষের সঙ্গে যোগাযোগ করুন।",
+          "error"
+        );
+
+        loginButton.disabled = false;
+        loginButton.textContent = "লগইন করুন";
+        return;
+      }
+
+      if (profile.role === "admin" || profile.role === "super_admin") {
+        window.location.href = "admin.html";
+        return;
+      }
+
+      showMessage("লগইন সফল হয়েছে। ড্যাশবোর্ড খোলা হচ্ছে...", "success");
+
+      setTimeout(function () {
+        window.location.href = "member-dashboard.html";
+      }, 800);
+    });
+  </script>
+</body>
+</html>
