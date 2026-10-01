@@ -577,4 +577,55 @@
         contentInput.value = selectedNotice.content;
 
         formHeading.textContent = "নোটিশ পরিবর্তন করুন";
-        submitBu
+        submitButton.textContent = "Update Notice";
+        cancelButton.style.display = "inline-block";
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      }
+
+      if (action === "delete") {
+        const confirmed = window.confirm(
+          "আপনি কি নিশ্চিতভাবে এই নোটিশটি মুছে ফেলতে চান?"
+        );
+
+        if (!confirmed) {
+          return;
+        }
+
+        const { error } = await supabaseClient
+          .from("notices")
+          .delete()
+          .eq("id", noticeId);
+
+        if (error) {
+          showMessage("নোটিশ delete করা যায়নি।", "error");
+          return;
+        }
+
+        showMessage("নোটিশ সফলভাবে delete করা হয়েছে।", "success");
+        await loadNotices();
+      }
+    });
+
+    cancelButton.addEventListener("click", resetForm);
+
+    logoutButton.addEventListener("click", async function () {
+      await supabaseClient.auth.signOut();
+      window.location.replace("login.html");
+    });
+
+    async function startDashboard() {
+      const isAdmin = await verifyAdmin();
+
+      if (isAdmin) {
+        await loadNotices();
+      }
+    }
+
+    startDashboard();
+  </script>
+</body>
+</html>
