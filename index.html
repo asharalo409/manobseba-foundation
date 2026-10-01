@@ -5,21 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>মানবসেবা ফাউন্ডেশন</title>
+
   <meta
     name="description"
-    content="মানবসেবা ফাউন্ডেশন একটি সামাজিক ও মানবিক সহায়তামূলক প্রতিষ্ঠান।"
+    content="মানবসেবা ফাউন্ডেশন সুবিধাবঞ্চিত মানুষের পাশে দাঁড়াতে শিক্ষা, স্বাস্থ্য ও মানবিক সহায়তা কার্যক্রম পরিচালনা করে।"
   />
 
   <style>
     :root {
       --primary: #0b6e4f;
       --primary-dark: #07513a;
+      --primary-light: #e7f4ed;
       --secondary: #f4b400;
       --dark: #17212b;
-      --text: #44505c;
-      --light: #f5f8f7;
+      --text: #52605a;
+      --light: #f4f8f6;
       --white: #ffffff;
-      --border: #e4ebe8;
+      --border: #dfe9e4;
+      --shadow: 0 12px 35px rgba(16, 57, 43, 0.1);
     }
 
     * {
@@ -33,9 +36,9 @@
     }
 
     body {
-      font-family: Arial, "Noto Sans Bengali", sans-serif;
       color: var(--dark);
       background: var(--white);
+      font-family: Arial, "Noto Sans Bengali", sans-serif;
       line-height: 1.7;
     }
 
@@ -45,21 +48,21 @@
     }
 
     .container {
-      width: min(1120px, 92%);
+      width: min(1130px, 92%);
       margin: 0 auto;
     }
 
     .topbar {
-      background: var(--primary-dark);
-      color: #eaf7f1;
-      font-size: 14px;
       padding: 8px 0;
+      color: #e9f8f1;
+      background: var(--primary-dark);
+      font-size: 14px;
     }
 
     .topbar-content {
       display: flex;
       justify-content: space-between;
-      gap: 16px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
@@ -67,12 +70,13 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(255, 255, 255, 0.97);
       border-bottom: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(10px);
     }
 
     .nav-content {
-      min-height: 72px;
+      min-height: 74px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -83,100 +87,98 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      color: var(--primary);
       font-size: 19px;
       font-weight: 700;
-      color: var(--primary);
+      white-space: nowrap;
     }
 
-    .brand-mark {
+    .brand-icon {
       display: grid;
       place-items: center;
       width: 42px;
       height: 42px;
+      border-radius: 50%;
       color: var(--white);
       background: var(--primary);
-      border-radius: 50%;
       font-size: 20px;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 20px;
-      font-size: 15px;
-      font-weight: 600;
+      gap: 17px;
+      color: #34423b;
+      font-size: 14px;
+      font-weight: 700;
     }
 
     .nav-links a:hover {
       color: var(--primary);
     }
 
-    .btn {
-      display: inline-block;
-      padding: 12px 22px;
-      border: 0;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: 700;
-      transition: 0.2s ease;
-    }
-
-    .btn-primary {
-      color: var(--white);
+    .login-link {
+      padding: 8px 12px;
+      border-radius: 7px;
+      color: var(--white) !important;
       background: var(--primary);
     }
 
-    .btn-primary:hover {
+    .login-link:hover {
+      color: var(--white) !important;
       background: var(--primary-dark);
-      transform: translateY(-2px);
-    }
-
-    .btn-outline {
-      color: var(--primary);
-      background: transparent;
-      border: 1px solid var(--primary);
-    }
-
-    .btn-outline:hover {
-      color: var(--white);
-      background: var(--primary);
     }
 
     .hero {
-      padding: 92px 0;
+      position: relative;
+      overflow: hidden;
+      padding: 95px 0 115px;
       color: var(--white);
       background:
-        linear-gradient(120deg, rgba(4, 73, 51, 0.93), rgba(11, 110, 79, 0.73)),
-        url("https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1600&q=80");
-      background-position: center;
-      background-size: cover;
+        radial-gradient(circle at 85% 10%, rgba(244, 180, 0, 0.25), transparent 25%),
+        radial-gradient(circle at 5% 90%, rgba(255, 255, 255, 0.12), transparent 28%),
+        linear-gradient(125deg, #064a36, #0b6e4f);
+    }
+
+    .hero::after {
+      position: absolute;
+      right: -65px;
+      bottom: -90px;
+      width: 300px;
+      height: 300px;
+      border: 45px solid rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      content: "";
     }
 
     .hero-content {
-      max-width: 720px;
+      position: relative;
+      z-index: 1;
+      max-width: 740px;
     }
 
     .hero-tag {
       display: inline-block;
-      margin-bottom: 14px;
+      margin-bottom: 15px;
       padding: 6px 13px;
-      border: 1px solid rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.4);
       border-radius: 30px;
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.1);
       font-size: 14px;
+      font-weight: 700;
     }
 
     .hero h1 {
-      margin-bottom: 17px;
-      font-size: clamp(34px, 6vw, 64px);
+      max-width: 720px;
+      margin-bottom: 18px;
+      font-size: clamp(35px, 6vw, 64px);
       line-height: 1.18;
     }
 
     .hero p {
       max-width: 620px;
-      margin-bottom: 28px;
-      color: #ecf8f2;
+      margin-bottom: 29px;
+      color: #e7f7ef;
       font-size: 18px;
     }
 
@@ -186,59 +188,60 @@
       gap: 12px;
     }
 
-    .hero .btn-outline {
-      color: var(--white);
-      border-color: var(--white);
+    .btn {
+      display: inline-block;
+      padding: 12px 21px;
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 700;
+      transition: 0.2s ease;
     }
 
-    .hero .btn-outline:hover {
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: var(--primary-dark);
+      background: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: #e7f5ed;
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      color: var(--white);
+      background: transparent;
+    }
+
+    .btn-outline:hover {
       color: var(--primary);
       background: var(--white);
     }
 
-    section {
-      padding: 76px 0;
-    }
-
-    .section-heading {
-      max-width: 660px;
-      margin: 0 auto 38px;
-      text-align: center;
-    }
-
-    .section-heading span {
-      color: var(--primary);
-      font-weight: 700;
-    }
-
-    .section-heading h2 {
-      margin: 6px 0 10px;
-      font-size: clamp(28px, 4vw, 40px);
-    }
-
-    .section-heading p {
-      color: var(--text);
-    }
-
     .stats {
-      margin-top: -35px;
       position: relative;
       z-index: 2;
+      margin-top: -43px;
     }
 
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      background: var(--white);
-      border-radius: 14px;
-      box-shadow: 0 10px 35px rgba(23, 33, 43, 0.13);
       overflow: hidden;
+      border-radius: 14px;
+      background: var(--white);
+      box-shadow: var(--shadow);
     }
 
     .stat {
-      padding: 24px 18px;
-      text-align: center;
+      padding: 25px 16px;
       border-right: 1px solid var(--border);
+      text-align: center;
     }
 
     .stat:last-child {
@@ -256,7 +259,33 @@
       font-size: 14px;
     }
 
-    .about {
+    section {
+      padding: 78px 0;
+    }
+
+    .section-heading {
+      max-width: 680px;
+      margin: 0 auto 39px;
+      text-align: center;
+    }
+
+    .section-heading span {
+      color: var(--primary);
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .section-heading h2 {
+      margin: 5px 0 10px;
+      font-size: clamp(29px, 4vw, 41px);
+      line-height: 1.3;
+    }
+
+    .section-heading p {
+      color: var(--text);
+    }
+
+    .about-section {
       background: var(--light);
     }
 
@@ -264,27 +293,60 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: center;
-      gap: 54px;
+      gap: 56px;
     }
 
-    .about-image {
-      min-height: 365px;
-      border-radius: 16px;
+    .about-visual {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 370px;
+      overflow: hidden;
+      border-radius: 18px;
+      color: var(--white);
       background:
-        linear-gradient(rgba(11, 110, 79, 0.12), rgba(11, 110, 79, 0.12)),
-        url("https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=1000&q=80");
-      background-position: center;
-      background-size: cover;
+        radial-gradient(circle at 20% 20%, rgba(244, 180, 0, 0.8), transparent 15%),
+        linear-gradient(135deg, #0b6e4f, #064a36);
     }
 
-    .about-text span {
+    .about-visual::before,
+    .about-visual::after {
+      position: absolute;
+      border: 25px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .about-visual::before {
+      top: -55px;
+      left: -55px;
+      width: 210px;
+      height: 210px;
+    }
+
+    .about-visual::after {
+      right: -65px;
+      bottom: -65px;
+      width: 250px;
+      height: 250px;
+    }
+
+    .heart-visual {
+      position: relative;
+      z-index: 1;
+      font-size: 110px;
+      filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.18));
+    }
+
+    .about-text > span {
       color: var(--primary);
+      font-size: 15px;
       font-weight: 700;
     }
 
     .about-text h2 {
       margin: 7px 0 16px;
-      font-size: clamp(28px, 4vw, 40px);
+      font-size: clamp(29px, 4vw, 40px);
       line-height: 1.3;
     }
 
@@ -293,44 +355,54 @@
       color: var(--text);
     }
 
+    .about-button {
+      margin-top: 9px;
+      color: var(--white);
+      background: var(--primary);
+    }
+
+    .about-button:hover {
+      background: var(--primary-dark);
+    }
+
     .program-grid,
     .notice-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 21px;
     }
 
-    .card {
-      padding: 27px;
+    .program-card {
+      padding: 28px;
       border: 1px solid var(--border);
-      border-radius: 13px;
+      border-radius: 14px;
       background: var(--white);
       transition: 0.2s ease;
     }
 
-    .card:hover {
+    .program-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 12px 30px rgba(16, 57, 43, 0.1);
+      box-shadow: var(--shadow);
     }
 
-    .card-icon {
+    .program-icon {
       display: grid;
       place-items: center;
-      width: 54px;
-      height: 54px;
+      width: 55px;
+      height: 55px;
       margin-bottom: 17px;
-      color: var(--primary);
       border-radius: 12px;
-      background: #e7f4ed;
-      font-size: 26px;
+      color: var(--primary);
+      background: var(--primary-light);
+      font-size: 27px;
     }
 
-    .card h3 {
+    .program-card h3 {
       margin-bottom: 9px;
       font-size: 21px;
     }
 
-    .card p {
+    .program-card p {
       color: var(--text);
       font-size: 15px;
     }
@@ -340,73 +412,80 @@
     }
 
     .notice-card {
+      min-height: 195px;
       padding: 23px;
       border-left: 4px solid var(--primary);
-      border-radius: 8px;
+      border-radius: 10px;
       background: var(--white);
+      box-shadow: 0 5px 18px rgba(16, 57, 43, 0.06);
     }
 
     .notice-date {
       display: block;
-      margin-bottom: 7px;
+      margin-bottom: 8px;
       color: var(--primary);
       font-size: 14px;
       font-weight: 700;
     }
 
     .notice-card h3 {
-      margin-bottom: 7px;
-      font-size: 18px;
+      margin-bottom: 8px;
+      font-size: 19px;
+      line-height: 1.4;
     }
 
     .notice-card p {
       color: var(--text);
       font-size: 14px;
+      white-space: pre-wrap;
     }
 
-    .join {
+    .join-section {
       color: var(--white);
       text-align: center;
-      background: var(--primary);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(244, 180, 0, 0.25), transparent 28%),
+        var(--primary);
     }
 
-    .join h2 {
+    .join-section h2 {
       margin-bottom: 12px;
-      font-size: clamp(28px, 4vw, 40px);
+      font-size: clamp(29px, 4vw, 41px);
     }
 
-    .join p {
-      max-width: 640px;
-      margin: 0 auto 23px;
-      color: #e9f7f0;
+    .join-section p {
+      max-width: 660px;
+      margin: 0 auto 24px;
+      color: #e5f6ed;
     }
 
-    .join .btn {
+    .join-section .btn {
       color: var(--primary);
       background: var(--white);
     }
 
     .footer {
-      padding: 48px 0 20px;
-      color: #d5e8df;
-      background: #122b22;
+      padding: 50px 0 20px;
+      color: #c6d9d0;
+      background: #102b21;
     }
 
     .footer-grid {
       display: grid;
       grid-template-columns: 2fr 1fr 1fr;
-      gap: 32px;
-      padding-bottom: 30px;
+      gap: 35px;
+      padding-bottom: 32px;
     }
 
     .footer h3 {
       margin-bottom: 12px;
       color: var(--white);
+      font-size: 19px;
     }
 
     .footer p,
     .footer a {
-      color: #c1d5cc;
+      color: #c2d5cb;
       font-size: 15px;
     }
 
@@ -415,18 +494,38 @@
       margin-bottom: 7px;
     }
 
-    .copyright {
-      padding-top: 18px;
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
-      color: #a9c0b5;
-      text-align: center;
-      font-size: 14px;
+    .footer a:hover {
+      color: var(--white);
     }
 
-    @media (max-width: 800px) {
+    .copyright {
+      padding-top: 19px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      color: #9fb8ac;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    @media (max-width: 920px) {
       .nav-links {
-        gap: 10px;
+        gap: 11px;
         font-size: 13px;
+      }
+
+      .about-grid {
+        gap: 35px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav-content {
+        padding: 12px 0;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        justify-content: flex-end;
+        flex-wrap: wrap;
       }
 
       .stats-grid {
@@ -437,7 +536,7 @@
         border-right: none;
       }
 
-      .stat:nth-child(-n+2) {
+      .stat:nth-child(-n + 2) {
         border-bottom: 1px solid var(--border);
       }
 
@@ -446,33 +545,62 @@
         grid-template-columns: 1fr;
       }
 
+      .about-visual {
+        min-height: 250px;
+      }
+
       .program-grid,
       .notice-grid {
         grid-template-columns: 1fr;
       }
     }
 
-    @media (max-width: 530px) {
+    @media (max-width: 510px) {
+      .topbar-content {
+        flex-direction: column;
+      }
+
       .nav-content {
-        padding: 12px 0;
-        align-items: flex-start;
+        flex-direction: column;
       }
 
       .brand {
-        font-size: 16px;
-      }
-
-      .brand-mark {
-        width: 36px;
-        height: 36px;
+        font-size: 17px;
       }
 
       .nav-links {
-        display: none;
+        width: 100%;
+        justify-content: flex-start;
       }
 
       .hero {
-        padding: 74px 0;
+        padding: 70px 0 105px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat,
+      .stat:nth-child(2) {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .stat:last-child {
+        border-bottom: none;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .hero-actions .btn {
+        text-align: center;
       }
     }
   </style>
@@ -482,14 +610,14 @@
   <div class="topbar">
     <div class="container topbar-content">
       <span>মানবতার সেবায় আমরা একসাথে</span>
-      <span>ইমেইল: info@manobseba.org</span>
+      <span>ইমেইল: taseenbillah409@gmail.com</span>
     </div>
   </div>
 
   <header class="navbar">
     <div class="container nav-content">
       <a class="brand" href="#home">
-        <span class="brand-mark">❤</span>
+        <span class="brand-icon">❤</span>
         <span>মানবসেবা ফাউন্ডেশন</span>
       </a>
 
@@ -499,6 +627,7 @@
         <a href="#programs">কার্যক্রম</a>
         <a href="#notices">নোটিশ</a>
         <a href="#contact">যোগাযোগ</a>
+        <a class="login-link" href="login.html">অফিসার লগইন</a>
       </nav>
     </div>
   </header>
@@ -507,7 +636,9 @@
     <section class="hero" id="home">
       <div class="container hero-content">
         <span class="hero-tag">মানবতা • শিক্ষা • স্বাস্থ্য • সহযোগিতা</span>
+
         <h1>একটু সহায়তা বদলে দিতে পারে একটি জীবন</h1>
+
         <p>
           মানবসেবা ফাউন্ডেশন সুবিধাবঞ্চিত মানুষের পাশে দাঁড়াতে,
           শিক্ষা ও স্বাস্থ্যসেবার সুযোগ বাড়াতে এবং একটি সুন্দর সমাজ গড়তে কাজ করে।
@@ -527,14 +658,17 @@
             <strong>১,২০০+</strong>
             <span>সুবিধাভোগী পরিবার</span>
           </div>
+
           <div class="stat">
             <strong>৫০+</strong>
             <span>স্বেচ্ছাসেবক</span>
           </div>
+
           <div class="stat">
             <strong>২৪+</strong>
             <span>সফল কার্যক্রম</span>
           </div>
+
           <div class="stat">
             <strong>৮</strong>
             <span>কর্মএলাকা</span>
@@ -543,22 +677,28 @@
       </div>
     </section>
 
-    <section class="about" id="about">
+    <section class="about-section" id="about">
       <div class="container about-grid">
-        <div class="about-image"></div>
+        <div class="about-visual">
+          <span class="heart-visual">❤</span>
+        </div>
 
         <div class="about-text">
           <span>আমাদের কথা</span>
+
           <h2>মানুষের জন্য, মানুষের পাশে</h2>
+
           <p>
             মানবসেবা ফাউন্ডেশন একটি অরাজনৈতিক ও অলাভজনক সামাজিক উদ্যোগ।
             আমরা বিশ্বাস করি—সম্মিলিত ছোট ছোট উদ্যোগও সমাজে বড় পরিবর্তন আনতে পারে।
           </p>
+
           <p>
             আমাদের লক্ষ্য হলো দরিদ্র, অসহায় এবং পিছিয়ে পড়া মানুষদের প্রয়োজনীয়
             সহায়তা পৌঁছে দেওয়া এবং তাদের আত্মনির্ভর হওয়ার পথ তৈরি করা।
           </p>
-          <a class="btn btn-primary" href="#contact">আমাদের সঙ্গে যুক্ত হোন</a>
+
+          <a class="btn about-button" href="#contact">আমাদের সঙ্গে যুক্ত হোন</a>
         </div>
       </div>
     </section>
@@ -567,31 +707,33 @@
       <div class="container">
         <div class="section-heading">
           <span>আমাদের উদ্যোগ</span>
+
           <h2>যে কাজগুলো আমরা করি</h2>
+
           <p>
             মানুষের জরুরি প্রয়োজনকে অগ্রাধিকার দিয়ে আমরা বিভিন্ন সামাজিক কার্যক্রম পরিচালনা করি।
           </p>
         </div>
 
         <div class="program-grid">
-          <article class="card">
-            <div class="card-icon">🎓</div>
+          <article class="program-card">
+            <div class="program-icon">🎓</div>
             <h3>শিক্ষা সহায়তা</h3>
             <p>
               দরিদ্র শিক্ষার্থীদের শিক্ষা উপকরণ, বৃত্তি ও পড়াশোনার প্রয়োজনীয় সহায়তা দেওয়া।
             </p>
           </article>
 
-          <article class="card">
-            <div class="card-icon">❤</div>
+          <article class="program-card">
+            <div class="program-icon">❤</div>
             <h3>স্বাস্থ্যসেবা</h3>
             <p>
               বিনামূল্যে স্বাস্থ্য ক্যাম্প, রক্তদান কর্মসূচি এবং প্রয়োজনীয় চিকিৎসা সহায়তা।
             </p>
           </article>
 
-          <article class="card">
-            <div class="card-icon">🤝</div>
+          <article class="program-card">
+            <div class="program-icon">🤝</div>
             <h3>ত্রাণ ও পুনর্বাসন</h3>
             <p>
               দুর্যোগ, শীত ও জরুরি পরিস্থিতিতে অসহায় পরিবারগুলোর পাশে দাঁড়ানো।
@@ -605,42 +747,34 @@
       <div class="container">
         <div class="section-heading">
           <span>সর্বশেষ তথ্য</span>
+
           <h2>নোটিশ ও কার্যক্রম</h2>
+
           <p>
-            পরবর্তী ধাপে এই অংশটি Supabase database থেকে স্বয়ংক্রিয়ভাবে দেখানো হবে।
+            মানবসেবা ফাউন্ডেশনের সর্বশেষ নোটিশ ও কার্যক্রমের তথ্য দেখুন।
           </p>
         </div>
 
-        <div class="notice-grid">
+        <div id="notice-list" class="notice-grid">
           <article class="notice-card">
-            <span class="notice-date">১৫ অক্টোবর ২০২৬</span>
-            <h3>শীতবস্ত্র বিতরণ কর্মসূচি</h3>
-            <p>শীতবস্ত্র সংগ্রহ ও বিতরণে স্বেচ্ছাসেবক নিবন্ধন চলছে।</p>
-          </article>
-
-          <article class="notice-card">
-            <span class="notice-date">১০ অক্টোবর ২০২৬</span>
-            <h3>ফ্রি মেডিকেল ক্যাম্প</h3>
-            <p>বিশেষজ্ঞ চিকিৎসকদের অংশগ্রহণে বিনামূল্যে স্বাস্থ্যসেবা দেওয়া হবে।</p>
-          </article>
-
-          <article class="notice-card">
-            <span class="notice-date">০৫ অক্টোবর ২০২৬</span>
-            <h3>শিক্ষা উপকরণ বিতরণ</h3>
-            <p>অসহায় শিক্ষার্থীদের জন্য খাতা, বই ও প্রয়োজনীয় উপকরণ বিতরণ করা হবে।</p>
+            <span class="notice-date">লোড হচ্ছে...</span>
+            <h3>সর্বশেষ নোটিশ আনা হচ্ছে</h3>
+            <p>অনুগ্রহ করে একটু অপেক্ষা করুন।</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="join" id="contact">
+    <section class="join-section" id="contact">
       <div class="container">
         <h2>আপনার অংশগ্রহণ গুরুত্বপূর্ণ</h2>
+
         <p>
           স্বেচ্ছাসেবক হিসেবে যুক্ত হোন অথবা আমাদের কার্যক্রমে সহায়তা করুন।
           মানুষের পাশে দাঁড়ানোর এই যাত্রায় আপনাকেও স্বাগতম।
         </p>
-        <a class="btn" href="mailto:info@manobseba.org">যোগাযোগ করুন</a>
+
+        <a class="btn" href="mailto:taseenbillah409@gmail.com">যোগাযোগ করুন</a>
       </div>
     </section>
   </main>
@@ -659,12 +793,13 @@
         <a href="#about">আমাদের সম্পর্কে</a>
         <a href="#programs">কার্যক্রম</a>
         <a href="#notices">নোটিশ</a>
+        <a href="login.html">অফিসার লগইন</a>
       </div>
 
       <div>
         <h3>যোগাযোগ</h3>
         <p>বাংলাদেশ</p>
-        <p>info@manobseba.org</p>
+        <p>taseenbillah409@gmail.com</p>
       </div>
     </div>
 
@@ -672,5 +807,76 @@
       <p>© ২০২৬ মানবসেবা ফাউন্ডেশন। সর্বস্বত্ব সংরক্ষিত।</p>
     </div>
   </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+
+  <script>
+    const noticeList = document.getElementById("notice-list");
+
+    function escapeHtml(value) {
+      const element = document.createElement("div");
+      element.textContent = value || "";
+      return element.innerHTML;
+    }
+
+    function formatBanglaDate(dateValue) {
+      return new Intl.DateTimeFormat("bn-BD", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      }).format(new Date(dateValue));
+    }
+
+    async function loadPublicNotices() {
+      const { data: notices, error } = await supabaseClient
+        .from("notices")
+        .select("id, title, content, published_at")
+        .order("published_at", { ascending: false })
+        .limit(6);
+
+      if (error) {
+        noticeList.innerHTML = `
+          <article class="notice-card">
+            <span class="notice-date">তথ্য পাওয়া যায়নি</span>
+            <h3>নোটিশ লোড করা সম্ভব হয়নি</h3>
+            <p>অনুগ্রহ করে পরে আবার চেষ্টা করুন।</p>
+          </article>
+        `;
+        return;
+      }
+
+      if (!notices || notices.length === 0) {
+        noticeList.innerHTML = `
+          <article class="notice-card">
+            <span class="notice-date">নতুন আপডেট</span>
+            <h3>এখনো কোনো নোটিশ প্রকাশ করা হয়নি</h3>
+            <p>
+              নতুন notice প্রকাশ হলে সেটি স্বয়ংক্রিয়ভাবে এখানে দেখা যাবে।
+            </p>
+          </article>
+        `;
+        return;
+      }
+
+      noticeList.innerHTML = notices
+        .map(function (notice) {
+          return `
+            <article class="notice-card">
+              <span class="notice-date">
+                ${formatBanglaDate(notice.published_at)}
+              </span>
+
+              <h3>${escapeHtml(notice.title)}</h3>
+
+              <p>${escapeHtml(notice.content)}</p>
+            </article>
+          `;
+        })
+        .join("");
+    }
+
+    loadPublicNotices();
+  </script>
 </body>
 </html>
