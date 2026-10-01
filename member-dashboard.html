@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#087a43" />
+  <title>সদস্য ড্যাশবোর্ড | মানবসেবা ফাউন্ডেশন</title>
+
+  <style>
+    :root {
+      --primary: #087a43;
+      --primary-dark: #045a31;
+      --secondary: #e9a420;
+      --bg: #f3f8f5;
+      --card: #ffffff;
+      --text: #17251d;
+      --muted: #66766c;
+      --border: #d8e7dd;
+      --success: #0a8241;
+      --warning: #aa7600;
+      --danger: #c43838;
+      --sidebar: #063d22;
+      --sidebar-hover: rgba(255, 255, 255, 0.14);
+      --shadow: 0 10px 28px rgba(5, 71, 37, 0.1);
+    }
+
+    body.dark {
+      --primary: #32c878;
+      --primary-dark: #15985a;
+      --secondary: #f4bc3c;
+      --bg: #101813;
+      --card: #19261e;
+      --text: #edf8f0;
+      --muted: #aab9af;
+      --border: #2d4435;
+      --success: #69df96;
+      --warning: #ffce5a;
+      --danger: #ff9d9d;
+      --sidebar: #071f12;
+      --sidebar-hover: rgba(255, 255, 255, 0.13);
+      --shadow: 0 10px 28px rgba(0, 0, 0, 0.24);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      color: var(--text);
+      background: var(--bg);
+      font-family: "Noto Sans Bengali", "Hind Siliguri", Arial, sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 22px 15px;
+      color: #ecfff2;
+      background: var(--sidebar);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 8px 25px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    .logo {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      color: var(--primary);
+      background: #ffffff;
+      font-size: 1.3rem;
+      font-weight: 800;
+    }
+
+    .brand h1 {
+      font-size: 1rem;
+      line-height: 1.3;
+    }
+
+    .brand p {
+      color: #bbd8c5;
+      font-size: 0.72rem;
+    }
+
+    .nav-title {
+      margin: 25px 10px 8px;
+      color: #a9cfb7;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .side-nav {
+      display: grid;
+      gap: 5px;
+      list-style: none;
+    }
+
+    .side-nav a,
+    .side-nav button {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 9px;
+      color: #e9f8ee;
+      background: transparent;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    .side-nav a:hover,
+    .side-nav button:hover,
+    .side-nav a.active {
+      background: var(--sidebar-hover);
+    }
+
+    .side-bottom {
+      margin-top: auto;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    .content {
+      min-width: 0;
+    }
+
+    .topbar {
+      min-height: 75px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 14px 30px;
+      border-bottom: 1px solid var(--border);
+      background: var(--card);
+    }
+
+    .topbar h2 {
+      font-size: 1.3rem;
+    }
+
+    .topbar p {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .top-btn {
+      padding: 9px 11px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .mobile-menu {
+      display: none;
+    }
+
+    .main-content {
+      width: min(1220px, 94%);
+      margin: auto;
+      padding: 31px 0 45px;
+    }
+
+    .loading-box {
+      padding: 35px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--card);
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .dashboard {
+      display: none;
+    }
+
+    .welcome {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .welcome h3 {
+      font-size: clamp(1.45rem, 3vw, 2rem);
+    }
+
+    .welcome p {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .member-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 12px;
+      border-radius: 30px;
+      color: var(--success);
+      background: color-mix(in srgb, var(--success) 12%, var(--card));
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .member-status::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 27px;
+    }
+
+    .summary-card {
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+
+    .summary-card .icon {
+      display: grid;
+      place-items: center;
+      width: 39px;
+      height: 39px;
+      margin-bottom: 12px;
+      border-radius: 10px;
+      background: color-mix(in srgb, var(--primary) 13%, var(--card));
+      font-size: 1.15rem;
+    }
+
+    .summary-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.79rem;
+    }
+
+    .summary-card strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 1rem;
+      word-break: break-word;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 0.88fr 1.12fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .card {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 18px 19px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-head h3 {
+      font-size: 1.05rem;
+    }
+
+    .card-head a {
+      color: var(--primary);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .profile-card-body {
+      padding: 23px 19px;
+    }
+
+    .profile-top {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .avatar {
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      flex: 0 0 68px;
+      width: 68px;
+      height: 68px;
+      border: 3px solid color-mix(in srgb, var(--primary) 24%, var(--card));
+      border-radius: 50%;
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), #49be7f);
+      font-size: 1.45rem;
+      font-weight: 800;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-top h4 {
+      font-size: 1.15rem;
+      line-height: 1.3;
+    }
+
+    .profile-top p {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .info-list {
+      display: grid;
+      gap: 11px;
+      list-style: none;
+    }
+
+    .info-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed var(--border);
+      font-size: 0.87rem;
+    }
+
+    .info-list li:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .info-list span {
+      color: var(--muted);
+    }
+
+    .info-list strong {
+      max-width: 60%;
+      text-align: right;
+      word-break: break-word;
+    }
+
+    .action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 19px;
+    }
+
+    .action-btn {
+      min-height: 83px;
+      padding: 13px 10px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      color: var(--text);
+      background: var(--bg);
+      text-align: center;
+      transition: 0.2s;
+    }
+
+    .action-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .action-btn b {
+      display: block;
+      margin-top: 5px;
+      font-size: 0.83rem;
+    }
+
+    .notices {
+      padding: 3px 18px 14px;
+    }
+
+    .notice-item {
+      display: flex;
+      gap: 13px;
+      padding: 16px 1px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .notice-item:last-child {
+      border-bottom: none;
+    }
+
+    .notice-icon {
+      display: grid;
+      place-items: center;
+      flex: 0 0 39px;
+      width: 39px;
+      height: 39px;
+      border-radius: 10px;
+      background: color-mix(in srgb, var(--secondary) 24%, var(--card));
+      font-size: 1.08rem;
+    }
+
+    .notice-text {
+      min-width: 0;
+    }
+
+    .notice-text h4 {
+      font-size: 0.96rem;
+      line-height: 1.45;
+    }
+
+    .notice-text p {
+      display: -webkit-box;
+      overflow: hidden;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.55;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .notice-meta {
+      display: block;
+      margin-top: 6px;
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .empty-notice {
+      padding: 34px 10px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .error-box {
+      display: none;
+      padding: 17px;
+      border: 1px solid #f1bebe;
+      border-radius: 12px;
+      color: #a62727;
+      background: #fff0f0;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 980px) {
+      .app {
+        grid-template-columns: 78px 1fr;
+      }
+
+      .sidebar {
+        padding: 19px 9px;
+      }
+
+      .brand {
+        justify-content: center;
+        padding: 0 0 20px;
+      }
+
+      .brand > div:last-child,
+      .nav-title,
+      .side-nav span {
+        display: none;
+      }
+
+      .side-nav a,
+      .side-nav button {
+        justify-content: center;
+        padding: 12px;
+      }
+
+      .summary-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .app {
+        display: block;
+      }
+
+      .sidebar {
+        display: none;
+      }
+
+      .mobile-menu {
+        display: inline-block;
+      }
+
+      .topbar {
+        min-height: 65px;
+        padding: 12px 16px;
+      }
+
+      .topbar h2 {
+        font-size: 1.05rem;
+      }
+
+      .topbar p {
+        display: none;
+      }
+
+      .main-content {
+        width: min(94%, 620px);
+        padding-top: 24px;
+      }
+
+      .welcome {
+        display: block;
+      }
+
+      .member-status {
+        margin-top: 12px;
+      }
+
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 450px) {
+      .summary-grid,
+      .action-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .summary-card {
+        padding: 14px;
+      }
+
+      .top-actions .top-btn:first-child {
+        display: none;
+      }
+
+      .info-list li {
+        display: block;
+      }
+
+      .info-list strong {
+        display: block;
+        max-width: 100%;
+        margin-top: 3px;
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <a class="brand" href="index.html">
+        <div class="logo">ম</div>
+        <div>
+          <h1>মানবসেবা ফাউন্ডেশন</h1>
+          <p>সদস্য ড্যাশবোর্ড</p>
+        </div>
+      </a>
+
+      <p class="nav-title">সদস্য মেনু</p>
+
+      <ul class="side-nav">
+        <li>
+          <a class="active" href="member-dashboard.html">
+            <b>⌂</b><span>ড্যাশবোর্ড</span>
+          </a>
+        </li>
+
+        <li>
+          <button onclick="comingSoon('প্রোফাইল সম্পাদনা পেজটি পরের ধাপে তৈরি করা হবে।')">
+            <b>👤</b><span>আমার প্রোফাইল</span>
+          </button>
+        </li>
+
+        <li>
+          <button onclick="comingSoon('ডিজিটাল সদস্য কার্ড পেজটি পরের ধাপে তৈরি করা হবে।')">
+            <b>🪪</b><span>ডিজিটাল সদস্য কার্ড</span>
+          </button>
+        </li>
+
+        <li>
+          <button onclick="comingSoon('আমার চাঁদা ও দানের হিসাব পেজটি পরে যুক্ত হবে।')">
+            <b>💳</b><span>আমার চাঁদা ও দান</span>
+          </button>
+        </li>
+
+        <li>
+          <button onclick="comingSoon('ইভেন্ট ও দায়িত্ব পেজটি পরে যুক্ত হবে।')">
+            <b>📅</b><span>কার্যক্রম ও ইভেন্ট</span>
+          </button>
+        </li>
+
+        <li>
+          <button onclick="comingSoon('নোটিফিকেশন পেজটি পরে যুক্ত হবে।')">
+            <b>🔔</b><span>নোটিফিকেশন</span>
+          </button>
+        </li>
+      </ul>
+
+      <div class="side-bottom">
+        <ul class="side-nav">
+          <li>
+            <a href="index.html">
+              <b>⌂</b><span>মূল ওয়েবসাইট</span>
+            </a>
+          </li>
+
+          <li>
+            <button onclick="logout()">
+              <b>↪</b><span>লগআউট</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <div class="content">
+      <header class="topbar">
+        <div>
+          <h2>সদস্য ড্যাশবোর্ড</h2>
+          <p id="today-date">তারিখ লোড হচ্ছে...</p>
+        </div>
+
+        <div class="top-actions">
+          <button class="top-btn mobile-menu" onclick="comingSoon('মোবাইল মেনু পরের ধাপে তৈরি করা হবে।')">☰</button>
+          <button class="top-btn" id="theme-btn" onclick="toggleTheme()">🌙 থিম</button>
+          <button class="top-btn" onclick="logout()">লগআউট</button>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <div id="loading-box" class="loading-box">
+          সদস্য তথ্য ও নোটিশ লোড হচ্ছে...
+        </div>
+
+        <div id="error-box" class="error-box"></div>
+
+        <div id="dashboard" class="dashboard">
+          <section class="welcome">
+            <div>
+              <h3 id="welcome-name">স্বাগতম</h3>
+              <p>মানবসেবা ফাউন্ডেশন পরিবারের সঙ্গে থাকার জন্য ধন্যবাদ।</p>
+            </div>
+
+            <div class="member-status" id="membership-status">
+              সক্রিয় সদস্য
+            </div>
+          </section>
+
+          <section class="summary-grid">
+            <article class="summary-card">
+              <div class="icon">🪪</div>
+              <span>সদস্য আইডি</span>
+              <strong id="member-id">লোড হচ্ছে...</strong>
+            </article>
+
+            <article class="summary-card">
+              <div class="icon">🏷️</div>
+              <span>বর্তমান পদ</span>
+              <strong id="member-role">সদস্য</strong>
+            </article>
+
+            <article class="summary-card">
+              <div class="icon">🩸</div>
+              <span>রক্তের গ্রুপ</span>
+              <strong id="blood-group">তথ্য নেই</strong>
+            </article>
+
+            <article class="summary-card">
+              <div class="icon">📅</div>
+              <span>সদস্য হওয়ার তারিখ</span>
+              <strong id="joined-date">অনুমোদনের অপেক্ষায়</strong>
+            </article>
+          </section>
+
+          <section class="content-grid">
+            <div>
+              <article class="card">
+                <div class="card-head">
+                  <h3>আমার প্রোফাইল</h3>
+                  <a href="#" onclick="comingSoon('প্রোফাইল সম্পাদনা পেজটি পরের ধাপে তৈরি করা হবে।'); return false;">
+                    সম্পাদনা
+                  </a>
+                </div>
+
+                <div class="profile-card-body">
+                  <div class="profile-top">
+                    <div class="avatar" id="avatar">ম</div>
+
+                    <div>
+                      <h4 id="profile-name">লোড হচ্ছে...</h4>
+                      <p id="profile-role">সাধারণ সদস্য</p>
+                    </div>
+                  </div>
+
+                  <ul class="info-list">
+                    <li>
+                      <span>ইমেইল</span>
+                      <strong id="profile-email">লোড হচ্ছে...</strong>
+                    </li>
+
+                    <li>
+                      <span>মোবাইল</span>
+                      <strong id="profile-phone">তথ্য নেই</strong>
+                    </li>
+
+                    <li>
+                      <span>ঠিকানা</span>
+                      <strong id="profile-address">তথ্য নেই</strong>
+                    </li>
+
+                    <li>
+                      <span>পেশা</span>
+                      <strong id="profile-occupation">তথ্য নেই</strong>
+                    </li>
+                  </ul>
+                </div>
+              </article>
+
+              <article class="card" style="margin-top: 20px;">
+                <div class="card-head">
+                  <h3>দ্রুত সেবা</h3>
+                </div>
+
+                <div class="action-grid">
+                  <button class="action-btn" onclick="comingSoon('সদস্য কার্ড পেজটি পরে তৈরি করা হবে।')">
+                    🪪
+                    <b>সদস্য কার্ড</b>
+                  </button>
+
+                  <button class="action-btn" onclick="comingSoon('প্রোফাইল ছবি আপলোড ফিচারটি পরে যোগ হবে।')">
+                    🖼️
+                    <b>ছবি পরিবর্তন</b>
+                  </button>
+
+                  <button class="action-btn" onclick="comingSoon('চাঁদা ও দানের হিসাব পরে যুক্ত হবে।')">
+                    💰
+                    <b>আমার হিসাব</b>
+                  </button>
+
+                  <button class="action-btn" onclick="comingSoon('সদস্য সহায়তা ও চ্যাট ফিচার পরে যুক্ত হবে।')">
+                    💬
+                    <b>সহায়তা</b>
+                  </button>
+                </div>
+              </article>
+            </div>
+
+            <article class="card">
+              <div class="card-head">
+                <h3>সর্বশেষ নোটিশ</h3>
+                <a href="#" onclick="comingSoon('সব নোটিশের আলাদা পেজ পরে তৈরি হবে।'); return false;">
+                  সব দেখুন
+                </a>
+              </div>
+
+              <div class="notices" id="notice-list">
+                <p class="empty-notice">নোটিশ লোড হচ্ছে...</p>
+              </div>
+            </article>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+
+  <script>
+    function getSupabaseClient() {
+      if (typeof supabaseClient !== "undefined") {
+        return supabaseClient;
+      }
+
+      if (window.supabaseClient) {
+        return window.supabaseClient;
+      }
+
+      return null;
+    }
+
+    function textOrDefault(value, defaultText) {
+      return value && String(value).trim() ? value : defaultText;
+    }
+
+    function makeRoleBangla(role) {
+      const roles = {
+        member: "সাধারণ সদস্য",
+        volunteer: "স্বেচ্ছাসেবক",
+        secretary: "সেক্রেটারি",
+        cashier: "ক্যাশিয়ার / কোষাধ্যক্ষ",
+        media_team: "মিডিয়া টিম",
+        project_incharge: "প্রকল্প ইনচার্জ",
+        admin: "অ্যাডমিন",
+        super_admin: "সুপার অ্যাডমিন"
+      };
+
+      return roles[role] || "সদস্য";
+    }
+
+    function formatBanglaDate(dateValue) {
+      if (!dateValue) {
+        return "তথ্য নেই";
+      }
+
+      return new Date(dateValue).toLocaleDateString("bn-BD", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      });
+    }
+
+    function escapeHtml(value) {
+      const element = document.createElement("div");
+      element.textContent = value || "";
+      return element.innerHTML;
+    }
+
+    function showError(message) {
+      document.getElementById("loading-box").style.display = "none";
+
+      const errorBox = document.getElementById("error-box");
+      errorBox.style.display = "block";
+      errorBox.textContent = message;
+    }
+
+    function comingSoon(message) {
+      alert(message);
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+
+      const isDark = document.body.classList.contains("dark");
+      document.getElementById("theme-btn").textContent = isDark
+        ? "☀️ থিম"
+        : "🌙 থিম";
+
+      localStorage.setItem("member-dashboard-theme", isDark ? "dark" : "light");
+    }
+
+    if (localStorage.getItem("member-dashboard-theme") === "dark") {
+      document.body.classList.add("dark");
+      document.getElementById("theme-btn").textContent = "☀️ থিম";
+    }
+
+    async function logout() {
+      const client = getSupabaseClient();
+
+      if (client) {
+        await client.auth.signOut();
+      }
+
+      window.location.href = "member-login.html";
+    }
+
+    async function loadNotices(client) {
+      const noticeList = document.getElementById("notice-list");
+
+      const { data: notices, error } = await client
+        .from("notices")
+        .select("id, title, content, category, published_at, is_important")
+        .eq("is_published", true)
+        .order("published_at", { ascending: false })
+        .limit(6);
+
+      if (error || !notices || notices.length === 0) {
+        noticeList.innerHTML = `
+          <p class="empty-notice">
+            এখনো কোনো প্রকাশিত নোটিশ পাওয়া যায়নি।
+          </p>
+        `;
+        return;
+      }
+
+      noticeList.innerHTML = notices
+        .map(function (notice) {
+          const icon = notice.is_important ? "📢" : "📄";
+
+          return `
+            <article class="notice-item">
+              <div class="notice-icon">${icon}</div>
+
+              <div class="notice-text">
+                <h4>${escapeHtml(notice.title)}</h4>
+                <p>${escapeHtml(notice.content)}</p>
+                <span class="notice-meta">
+                  ${escapeHtml(notice.category || "সাধারণ নোটিশ")}
+                  • ${formatBanglaDate(notice.published_at)}
+                </span>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+    }
+
+    async function startDashboard() {
+      const client = getSupabaseClient();
+
+      if (!client) {
+        showError(
+          "Supabase সংযোগ পাওয়া যায়নি। supabase-config.js ফাইলটি পরীক্ষা করুন।"
+        );
+        return;
+      }
+
+      const {
+        data: { user },
+        error: userError
+      } = await client.auth.getUser();
+
+      if (userError || !user) {
+        window.location.href = "member-login.html";
+        return;
+      }
+
+      const { data: profile, error: profileError } = await client
+        .from("profiles")
+        .select(`
+          full_name,
+          member_id,
+          role,
+          membership_type,
+          membership_status,
+          phone,
+          address,
+          blood_group,
+          occupation,
+          bio,
+          avatar_url,
+          joined_at
+        `)
+        .eq("id", user.id)
+        .single();
+
+      if (profileError || !profile) {
+        showError(
+          "আপনার সদস্য profile পাওয়া যায়নি। অনুগ্রহ করে ফাউন্ডেশন কর্তৃপক্ষের সঙ্গে যোগাযোগ করুন।"
+        );
+        return;
+      }
+
+      if (profile.membership_status !== "active") {
+        await client.auth.signOut();
+        window.location.href = "member-login.html";
+        return;
+      }
+
+      const fullName = textOrDefault(profile.full_name, "প্রিয় সদস্য");
+      const firstLetter = fullName.charAt(0);
+
+      document.getElementById("welcome-name").textContent = "স্বাগতম, " + fullName;
+      document.getElementById("profile-name").textContent = fullName;
+      document.getElementById("profile-role").textContent =
+        textOrDefault(profile.membership_type, makeRoleBangla(profile.role));
+
+      document.getElementById("member-id").textContent =
+        textOrDefault(profile.member_id, "এখনো দেওয়া হয়নি");
+
+      document.getElementById("member-role").textContent =
+        makeRoleBangla(profile.role);
+
+      document.getElementById("blood-group").textContent =
+        textOrDefault(profile.blood_group, "তথ্য নেই");
+
+      document.getElementById("joined-date").textContent =
+        formatBanglaDate(profile.joined_at);
+
+      document.getElementById("profile-email").textContent =
+        textOrDefault(user.email, "তথ্য নেই");
+
+      document.getElementById("profile-phone").textContent =
+        textOrDefault(profile.phone, "তথ্য নেই");
+
+      document.getElementById("profile-address").textContent =
+        textOrDefault(profile.address, "তথ্য নেই");
+
+      document.getElementById("profile-occupation").textContent =
+        textOrDefault(profile.occupation, "তথ্য নেই");
+
+      const avatar = document.getElementById("avatar");
+
+      if (profile.avatar_url) {
+        avatar.innerHTML = `<img src="${escapeHtml(profile.avatar_url)}" alt="প্রোফাইল ছবি">`;
+      } else {
+        avatar.textContent = firstLetter || "ম";
+      }
+
+      document.getElementById("membership-status").textContent =
+        "সক্রিয় সদস্য";
+
+      document.getElementById("loading-box").style.display = "none";
+      document.getElementById("dashboard").style.display = "block";
+
+      loadNotices(client);
+    }
+
+    document.getElementById("today-date").textContent =
+      new Date().toLocaleDateString("bn-BD", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      });
+
+    startDashboard();
+  </script>
+</body>
+</html>
