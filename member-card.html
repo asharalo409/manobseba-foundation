@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ডিজিটাল সদস্য কার্ড | মানবসেবা ফাউন্ডেশন</title>
+
+  <style>
+    :root {
+      --primary: #087a43;
+      --dark: #045a31;
+      --gold: #e9a420;
+      --bg: #eef7f1;
+      --text: #17251d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      padding: 25px 15px 45px;
+      color: var(--text);
+      background:
+        linear-gradient(135deg, rgba(2, 69, 34, 0.9), rgba(8, 122, 67, 0.72)),
+        url("https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1600&q=85")
+        center/cover fixed;
+      font-family: "Noto Sans Bengali", "Hind Siliguri", Arial, sans-serif;
+    }
+
+    .top {
+      width: min(850px, 96%);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin: auto auto 25px;
+      color: #fff;
+    }
+
+    .top h1 {
+      font-size: 1.15rem;
+    }
+
+    .top p {
+      opacity: 0.86;
+      font-size: 0.78rem;
+    }
+
+    .back {
+      padding: 9px 12px;
+      border: 1px solid rgba(255,255,255,.5);
+      border-radius: 9px;
+      color: #fff;
+      font-size: .85rem;
+      text-decoration: none;
+    }
+
+    #loading {
+      width: min(850px, 96%);
+      margin: auto;
+      padding: 30px;
+      border-radius: 15px;
+      color: #fff;
+      background: rgba(255,255,255,.16);
+      text-align: center;
+    }
+
+    .area {
+      display: none;
+      width: min(850px, 96%);
+      margin: auto;
+    }
+
+    .member-card {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      min-height: 460px;
+      border: 5px solid #fff;
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: 0 24px 70px rgba(0,0,0,.3);
+    }
+
+    .member-card::before {
+      content: "";
+      position: absolute;
+      width: 330px;
+      height: 330px;
+      top: -145px;
+      right: -110px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.1);
+    }
+
+    .left {
+      position: relative;
+      z-index: 1;
+      padding: 30px;
+      color: #fff;
+      background: linear-gradient(145deg, var(--dark), var(--primary));
+    }
+
+    .foundation {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,.28);
+    }
+
+    .logo {
+      width: 47px;
+      height: 47px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--primary);
+      background: #fff;
+      font-size: 1.4rem;
+      font-weight: 800;
+    }
+
+    .foundation h2 {
+      font-size: 1.15rem;
+      line-height: 1.28;
+    }
+
+    .foundation p {
+      opacity: .85;
+      font-size: .74rem;
+    }
+
+    .member-info {
+      display: flex;
+      gap: 17px;
+      align-items: center;
+      margin: 34px 0 23px;
+    }
+
+    .avatar {
+      width: 105px;
+      height: 105px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      flex: 0 0 105px;
+      border: 4px solid rgba(255,255,255,.85);
+      border-radius: 50%;
+      background: #42ba78;
+      font-size: 2.2rem;
+      font-weight: 800;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .member-info h3 {
+      font-size: 1.55rem;
+      line-height: 1.35;
+    }
+
+    .member-info p {
+      margin-top: 4px;
+      color: #d5f0df;
+      font-size: .9rem;
+    }
+
+    .info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px;
+    }
+
+    .info-box {
+      padding: 10px 12px;
+      border-radius: 9px;
+      background: rgba(255,255,255,.13);
+    }
+
+    .info-box span {
+      display: block;
+      color: #caead5;
+      font-size: .72rem;
+    }
+
+    .info-box strong {
+      display: block;
+      margin-top: 3px;
+      font-size: .93rem;
+      word-break: break-word;
+    }
+
+    .quote {
+      position: absolute;
+      bottom: 25px;
+      left: 30px;
+      color: #dcf5e5;
+      font-size: .82rem;
+      font-style: italic;
+    }
+
+    .right {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 28px;
+      text-align: center;
+      background: #fff;
+    }
+
+    .right h3 {
+      margin-bottom: 7px;
+      color: var(--dark);
+      font-size: 1.16rem;
+    }
+
+    .right p {
+      margin-bottom: 17px;
+      color: #68776e;
+      font-size: .8rem;
+      line-height: 1.6;
+    }
+
+    #qr-code {
+      display: grid;
+      place-items: center;
+      width: 190px;
+      height: 190px;
+      padding: 10px;
+      border: 1px solid #d6e5db;
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    #qr-code img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .verified {
+      margin-top: 17px;
+      padding: 6px 11px;
+      border-radius: 20px;
+      color: #087a43;
+      background: #e5f8eb;
+      font-size: .76rem;
+      font-weight: 800;
+    }
+
+    .card-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .btn {
+      padding: 11px 15px;
+      border: 0;
+      border-radius: 9px;
+      background: #fff;
+      color: var(--dark);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .btn.primary {
+      color: #fff;
+      background: var(--primary);
+    }
+
+    .note {
+      max-width: 850px;
+      margin: 17px auto 0;
+      padding: 12px;
+      border-radius: 9px;
+      color: #fff;
+      background: rgba(0,0,0,.24);
+      font-size: .82rem;
+      line-height: 1.65;
+      text-align: center;
+    }
+
+    @media (max-width: 650px) {
+      .member-card {
+        grid-template-columns: 1fr;
+      }
+
+      .left {
+        min-height: 380px;
+      }
+
+      .quote {
+        position: static;
+        margin-top: 25px;
+      }
+
+      .member-info {
+        margin: 25px 0 20px;
+      }
+
+      .info {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media print {
+      body {
+        padding: 0;
+        background: #fff;
+      }
+
+      .top,
+      .card-actions,
+      .note {
+        display: none;
+      }
+
+      .area {
+        width: 100%;
+      }
+
+      .member-card {
+        border-radius: 0;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="top">
+    <div>
+      <h1>মানবসেবা ফাউন্ডেশন</h1>
+      <p>ডিজিটাল সদস্য কার্ড</p>
+    </div>
+
+    <a class="back" href="member-dashboard.html">← ড্যাশবোর্ড</a>
+  </header>
+
+  <div id="loading">ডিজিটাল সদস্য কার্ড তৈরি হচ্ছে...</div>
+
+  <main id="area" class="area">
+    <section class="member-card" id="print-card">
+      <div class="left">
+        <div class="foundation">
+          <div class="logo">ম</div>
+          <div>
+            <h2>মানবসেবা ফাউন্ডেশন</h2>
+            <p>মানবতার সেবায় আমরা একসাথে</p>
+          </div>
+        </div>
+
+        <div class="member-info">
+          <div id="avatar" class="avatar">ম</div>
+
+          <div>
+            <h3 id="member-name">লোড হচ্ছে...</h3>
+            <p id="member-type">সাধারণ সদস্য</p>
+          </div>
+        </div>
+
+        <div class="info">
+          <div class="info-box">
+            <span>সদস্য আইডি</span>
+            <strong id="member-id">-</strong>
+          </div>
+
+          <div class="info-box">
+            <span>বর্তমান পদ</span>
+            <strong id="member-role">সদস্য</strong>
+          </div>
+
+          <div class="info-box">
+            <span>যোগদানের তারিখ</span>
+            <strong id="joined-date">-</strong>
+          </div>
+
+          <div class="info-box">
+            <span>সদস্যপদ</span>
+            <strong>সক্রিয়</strong>
+          </div>
+        </div>
+
+        <p class="quote">“মানবতার সেবায় আমরা একসাথে”</p>
+      </div>
+
+      <div class="right">
+        <h3>সদস্য পরিচয় যাচাই</h3>
+        <p>QR Code scan করে কার্ডের বৈধতা যাচাই করুন।</p>
+
+        <div id="qr-code"></div>
+
+        <div class="verified">✓ সক্রিয় ডিজিটাল সদস্য কার্ড</div>
+      </div>
+    </section>
+
+    <div class="card-actions">
+      <button class="btn primary" onclick="window.print()">🖨️ কার্ড প্রিন্ট করুন</button>
+      <button class="btn" onclick="copyVerifyLink()">🔗 যাচাই লিংক কপি করুন</button>
+    </div>
+
+    <p class="note">
+      QR Code-এ কোনো password, ফোন নম্বর, ঠিকানা বা ব্যক্তিগত হিসাব থাকবে না।
+      Card inactive হলে QR scan করলেও এটি বৈধ হিসেবে দেখাবে না।
+    </p>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script src="supabase-config.js"></script>
+
+  <script>
+    let verifyLink = "";
+
+    function getClient() {
+      if (typeof supabaseClient !== "undefined") return supabaseClient;
+      return window.supabaseClient || null;
+    }
+
+    function safe(v, fallback) {
+      return v && String(v).trim() ? v : fallback;
+    }
+
+    function dateBn(v) {
+      return v
+        ? new Date(v).toLocaleDateString("bn-BD", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+          })
+        : "তথ্য নেই";
+    }
+
+    function roleBn(role) {
+      const roles = {
+        member: "সাধারণ সদস্য",
+        volunteer: "স্বেচ্ছাসেবক",
+        secretary: "সেক্রেটারি",
+        cashier: "ক্যাশিয়ার / কোষাধ্যক্ষ",
+        media_team: "মিডিয়া টিম",
+        project_incharge: "প্রকল্প ইনচার্জ",
+        admin: "অ্যাডমিন",
+        super_admin: "সুপার অ্যাডমিন"
+      };
+
+      return roles[role] || "সদস্য";
+    }
+
+    function copyVerifyLink() {
+      if (!verifyLink) return;
+
+      navigator.clipboard.writeText(verifyLink)
+        .then(() => alert("কার্ড যাচাইয়ের link কপি হয়েছে।"))
+        .catch(() => alert("Link কপি করা যায়নি। QR Code scan করে যাচাই করুন।"));
+    }
+
+    async function start() {
+      const client = getClient();
+
+      if (!client) {
+        document.getElementById("loading").textContent =
+          "Supabase সংযোগ পাওয়া যায়নি। supabase-config.js পরীক্ষা করুন।";
+        return;
+      }
+
+      const {
+        data: { user }
+      } = await client.auth.getUser();
+
+      if (!user) {
+        window.location.href = "member-login.html";
+        return;
+      }
+
+      const { data: profile, error } = await client
+        .from("profiles")
+        .select(`
+          full_name,
+          member_id,
+          role,
+          membership_type,
+          membership_status,
+          avatar_url,
+          joined_at,
+          qr_token
+        `)
+        .eq("id", user.id)
+        .single();
+
+      if (error || !profile || profile.membership_status !== "active") {
+        await client.auth.signOut();
+        window.location.href = "member-login.html";
+        return;
+      }
+
+      const name = safe(profile.full_name, "প্রিয় সদস্য");
+
+      document.getElementById("member-name").textContent = name;
+      document.getElementById("member-type").textContent =
+        safe(profile.membership_type, roleBn(profile.role));
+
+      document.getElementById("member-id").textContent =
+        safe(profile.member_id, "এখনো দেওয়া হয়নি");
+
+      document.getElementById("member-role").textContent =
+        roleBn(profile.role);
+
+      document.getElementById("joined-date").textContent =
+        dateBn(profile.joined_at);
+
+      const avatar = document.getElementById("avatar");
+
+      if (profile.avatar_url) {
+        avatar.innerHTML =
+          `<img src="${profile.avatar_url}" alt="সদস্যের প্রোফাইল ছবি">`;
+      } else {
+        avatar.textContent = name.charAt(0) || "ম";
+      }
+
+      verifyLink =
+        "https://asharalo409.github.io/manobseba-foundation/verify.html?token=" +
+        profile.qr_token;
+
+      new QRCode(document.getElementById("qr-code"), {
+        text: verifyLink,
+        width: 170,
+        height: 170,
+        colorDark: "#063d22",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("area").style.display = "block";
+    }
+
+    start();
+  </script>
+</body>
+</html>
