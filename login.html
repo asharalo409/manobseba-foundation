@@ -252,7 +252,7 @@
       });
 
       if (error) {
-        showMessage("ইমেইল বা পাসওয়ার্ড সঠিক নয়। আবার চেষ্টা করুন।", "error");
+        showMessage(error.message, "error");
         loginButton.disabled = false;
         loginButton.textContent = "লগইন করুন";
         return;
@@ -272,9 +272,16 @@
         return;
       }
 
-      if (profile.role !== "admin" && profile.role !== "officer") {
+      if (
+        profile.role !== "super_admin" &&
+        profile.role !== "admin" &&
+        profile.role !== "officer"
+      ) {
         await supabaseClient.auth.signOut();
-        showMessage("এই account দিয়ে admin বা officer panel-এ প্রবেশের অনুমতি নেই।", "error");
+        showMessage(
+          "এই account দিয়ে admin বা officer panel-এ প্রবেশের অনুমতি নেই।",
+          "error"
+        );
         loginButton.disabled = false;
         loginButton.textContent = "লগইন করুন";
         return;
