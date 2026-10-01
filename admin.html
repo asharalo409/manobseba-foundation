@@ -311,6 +311,7 @@
     <div class="dashboard-grid">
       <section class="card">
         <h2 id="form-heading">নতুন নোটিশ</h2>
+
         <p class="card-description">
           শিরোনাম ও বিস্তারিত লেখা পূরণ করে Publish Notice চাপুন।
         </p>
@@ -320,6 +321,7 @@
         <form id="notice-form">
           <div class="form-group">
             <label for="notice-title">নোটিশের শিরোনাম</label>
+
             <input
               id="notice-title"
               type="text"
@@ -330,6 +332,7 @@
 
           <div class="form-group">
             <label for="notice-content">বিস্তারিত লেখা</label>
+
             <textarea
               id="notice-content"
               placeholder="নোটিশের বিস্তারিত লিখুন..."
@@ -353,7 +356,10 @@
 
       <section class="card">
         <h2>প্রকাশিত নোটিশ</h2>
-        <p class="card-description">বর্তমানে প্রকাশিত সব notice এখানে আছে।</p>
+
+        <p class="card-description">
+          বর্তমানে প্রকাশিত সব notice এখানে আছে।
+        </p>
 
         <div id="notice-list" class="notice-list">
           <p class="empty-message">নোটিশ লোড হচ্ছে...</p>
@@ -427,7 +433,9 @@
         .eq("id", currentUser.id)
         .single();
 
-      if (error || !profile || profile.role !== "admin") {
+      const allowedRoles = ["super_admin", "admin", "officer"];
+
+      if (error || !profile || !allowedRoles.includes(profile.role)) {
         await supabaseClient.auth.signOut();
         window.location.replace("login.html");
         return false;
@@ -509,7 +517,7 @@
       submitButton.disabled = true;
       submitButton.textContent = "অপেক্ষা করুন...";
 
-      let error;
+      let error = null;
 
       if (editingNoticeId) {
         const result = await supabaseClient
@@ -534,11 +542,16 @@
       }
 
       if (error) {
-        showMessage("কাজটি সম্পন্ন হয়নি। আবার চেষ্টা করুন।", "error");
+        showMessage(
+          "কাজটি সম্পন্ন হয়নি: " + error.message,
+          "error"
+        );
+
         submitButton.disabled = false;
         submitButton.textContent = editingNoticeId
           ? "Update Notice"
           : "Publish Notice";
+
         return;
       }
 
@@ -548,6 +561,7 @@
 
       resetForm();
       showMessage(successText, "success");
+
       await loadNotices();
 
       submitButton.disabled = false;
@@ -601,7 +615,10 @@
           .eq("id", noticeId);
 
         if (error) {
-          showMessage("নোটিশ delete করা যায়নি।", "error");
+          showMessage(
+            "নোটিশ delete করা যায়নি: " + error.message,
+            "error"
+          );
           return;
         }
 
