@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Admin Dashboard | মানবসেবা ফাউন্ডেশন</title>
+
+  <style>
+    :root {
+      --primary: #0b6e4f;
+      --primary-dark: #07513a;
+      --dark: #17212b;
+      --text: #58665f;
+      --light: #f4f8f6;
+      --white: #ffffff;
+      --border: #dce7e1;
+      --danger: #b42318;
+      --danger-bg: #fff1f0;
+      --success: #027a48;
+      --success-bg: #ecfdf3;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      color: var(--dark);
+      background: var(--light);
+      font-family: Arial, "Noto Sans Bengali", sans-serif;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+    }
+
+    .topbar {
+      padding: 15px 0;
+      color: var(--white);
+      background: var(--primary-dark);
+    }
+
+    .topbar-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      font-size: 19px;
+      font-weight: 700;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .header-button {
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      border-radius: 7px;
+      color: var(--white);
+      background: transparent;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .header-button:hover {
+      color: var(--primary-dark);
+      background: var(--white);
+    }
+
+    main {
+      padding: 42px 0 70px;
+    }
+
+    .page-heading {
+      margin-bottom: 27px;
+    }
+
+    .page-heading h1 {
+      margin-bottom: 5px;
+      font-size: clamp(29px, 4vw, 39px);
+    }
+
+    .page-heading p {
+      color: var(--text);
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.45fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .card {
+      padding: 25px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: var(--white);
+    }
+
+    .card h2 {
+      margin-bottom: 6px;
+      font-size: 22px;
+    }
+
+    .card-description {
+      margin-bottom: 20px;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      outline: none;
+      color: var(--dark);
+      font-family: inherit;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(11, 110, 79, 0.12);
+    }
+
+    .button {
+      padding: 11px 16px;
+      border: 0;
+      border-radius: 8px;
+      color: var(--white);
+      background: var(--primary);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .button:hover {
+      background: var(--primary-dark);
+    }
+
+    .button:disabled {
+      cursor: not-allowed;
+      opacity: 0.65;
+    }
+
+    .cancel-button {
+      display: none;
+      margin-left: 8px;
+      color: var(--text);
+      background: #e8efeb;
+    }
+
+    .cancel-button:hover {
+      background: #dce7e1;
+    }
+
+    .message {
+      display: none;
+      margin-bottom: 16px;
+      padding: 11px 13px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .message.success {
+      display: block;
+      color: var(--success);
+      background: var(--success-bg);
+    }
+
+    .message.error {
+      display: block;
+      color: var(--danger);
+      background: var(--danger-bg);
+    }
+
+    .notice-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .notice {
+      padding: 17px;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
+      border-radius: 9px;
+    }
+
+    .notice-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 7px;
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .notice h3 {
+      margin-bottom: 7px;
+      font-size: 18px;
+    }
+
+    .notice p {
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+
+    .notice-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .small-button {
+      padding: 7px 11px;
+      border: 0;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .edit-button {
+      color: var(--primary);
+      background: #e7f4ed;
+    }
+
+    .delete-button {
+      color: var(--danger);
+      background: var(--danger-bg);
+    }
+
+    .empty-message {
+      padding: 28px 10px;
+      color: var(--text);
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      .topbar-content,
+      .topbar-actions {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container topbar-content">
+      <div class="brand">❤ মানবসেবা ফাউন্ডেশন — Admin Dashboard</div>
+
+      <div class="topbar-actions">
+        <span id="admin-email">লোড হচ্ছে...</span>
+        <a class="header-button" href="index.html">ওয়েবসাইট দেখুন</a>
+        <button id="logout-button" class="header-button">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-heading">
+      <h1>নোটিশ পরিচালনা</h1>
+      <p>এখান থেকে নতুন notice publish, edit অথবা delete করতে পারবেন।</p>
+    </div>
+
+    <div class="dashboard-grid">
+      <section class="card">
+        <h2 id="form-heading">নতুন নোটিশ</h2>
+        <p class="card-description">
+          শিরোনাম ও বিস্তারিত লেখা পূরণ করে Publish Notice চাপুন।
+        </p>
+
+        <div id="message-box" class="message"></div>
+
+        <form id="notice-form">
+          <div class="form-group">
+            <label for="notice-title">নোটিশের শিরোনাম</label>
+            <input
+              id="notice-title"
+              type="text"
+              placeholder="যেমন: শীতবস্ত্র বিতরণ কর্মসূচি"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="notice-content">বিস্তারিত লেখা</label>
+            <textarea
+              id="notice-content"
+              placeholder="নোটিশের বিস্তারিত লিখুন..."
+              required
+            ></textarea>
+          </div>
+
+          <button id="submit-button" class="button" type="submit">
+            Publish Notice
+          </button>
+
+          <button
+            id="cancel-button"
+            class="button cancel-button"
+            type="button"
+          >
+            বাতিল
+          </button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>প্রকাশিত নোটিশ</h2>
+        <p class="card-description">বর্তমানে প্রকাশিত সব notice এখানে আছে।</p>
+
+        <div id="notice-list" class="notice-list">
+          <p class="empty-message">নোটিশ লোড হচ্ছে...</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+
+  <script>
+    const noticeForm = document.getElementById("notice-form");
+    const titleInput = document.getElementById("notice-title");
+    const contentInput = document.getElementById("notice-content");
+    const submitButton = document.getElementById("submit-button");
+    const cancelButton = document.getElementById("cancel-button");
+    const formHeading = document.getElementById("form-heading");
+    const messageBox = document.getElementById("message-box");
+    const noticeList = document.getElementById("notice-list");
+    const logoutButton = document.getElementById("logout-button");
+    const adminEmail = document.getElementById("admin-email");
+
+    let currentUser = null;
+    let editingNoticeId = null;
+    let noticesCache = [];
+
+    function escapeHtml(value) {
+      const element = document.createElement("div");
+      element.textContent = value || "";
+      return element.innerHTML;
+    }
+
+    function showMessage(text, type) {
+      messageBox.textContent = text;
+      messageBox.className = `message ${type}`;
+    }
+
+    function formatDate(dateValue) {
+      return new Intl.DateTimeFormat("bn-BD", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      }).format(new Date(dateValue));
+    }
+
+    function resetForm() {
+      editingNoticeId = null;
+      noticeForm.reset();
+      formHeading.textContent = "নতুন নোটিশ";
+      submitButton.textContent = "Publish Notice";
+      cancelButton.style.display = "none";
+      messageBox.className = "message";
+      messageBox.textContent = "";
+    }
+
+    async function verifyAdmin() {
+      const { data: sessionData } = await supabaseClient.auth.getSession();
+
+      if (!sessionData.session) {
+        window.location.replace("login.html");
+        return false;
+      }
+
+      currentUser = sessionData.session.user;
+      adminEmail.textContent = currentUser.email;
+
+      const { data: profile, error } = await supabaseClient
+        .from("profiles")
+        .select("role")
+        .eq("id", currentUser.id)
+        .single();
+
+      if (error || !profile || profile.role !== "admin") {
+        await supabaseClient.auth.signOut();
+        window.location.replace("login.html");
+        return false;
+      }
+
+      return true;
+    }
+
+    async function loadNotices() {
+      noticeList.innerHTML =
+        '<p class="empty-message">নোটিশ লোড হচ্ছে...</p>';
+
+      const { data: notices, error } = await supabaseClient
+        .from("notices")
+        .select("id, title, content, published_at")
+        .order("published_at", { ascending: false });
+
+      if (error) {
+        noticeList.innerHTML =
+          '<p class="empty-message">নোটিশ লোড করা যায়নি।</p>';
+        return;
+      }
+
+      noticesCache = notices || [];
+
+      if (noticesCache.length === 0) {
+        noticeList.innerHTML =
+          '<p class="empty-message">এখনো কোনো নোটিশ প্রকাশ করা হয়নি।</p>';
+        return;
+      }
+
+      noticeList.innerHTML = noticesCache
+        .map(function (notice) {
+          return `
+            <article class="notice">
+              <div class="notice-meta">
+                <span>${formatDate(notice.published_at)}</span>
+                <span>নোটিশ #${notice.id}</span>
+              </div>
+
+              <h3>${escapeHtml(notice.title)}</h3>
+
+              <p>${escapeHtml(notice.content)}</p>
+
+              <div class="notice-actions">
+                <button
+                  class="small-button edit-button"
+                  data-action="edit"
+                  data-id="${notice.id}"
+                >
+                  Edit
+                </button>
+
+                <button
+                  class="small-button delete-button"
+                  data-action="delete"
+                  data-id="${notice.id}"
+                >
+                  Delete
+                </button>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+    }
+
+    noticeForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const title = titleInput.value.trim();
+      const content = contentInput.value.trim();
+
+      if (!title || !content) {
+        showMessage("শিরোনাম ও বিস্তারিত লেখা পূরণ করুন।", "error");
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = "অপেক্ষা করুন...";
+
+      let error;
+
+      if (editingNoticeId) {
+        const result = await supabaseClient
+          .from("notices")
+          .update({
+            title: title,
+            content: content
+          })
+          .eq("id", editingNoticeId);
+
+        error = result.error;
+      } else {
+        const result = await supabaseClient
+          .from("notices")
+          .insert({
+            title: title,
+            content: content,
+            created_by: currentUser.id
+          });
+
+        error = result.error;
+      }
+
+      if (error) {
+        showMessage("কাজটি সম্পন্ন হয়নি। আবার চেষ্টা করুন।", "error");
+        submitButton.disabled = false;
+        submitButton.textContent = editingNoticeId
+          ? "Update Notice"
+          : "Publish Notice";
+        return;
+      }
+
+      const successText = editingNoticeId
+        ? "নোটিশ সফলভাবে পরিবর্তন করা হয়েছে।"
+        : "নোটিশ সফলভাবে প্রকাশ করা হয়েছে।";
+
+      resetForm();
+      showMessage(successText, "success");
+      await loadNotices();
+
+      submitButton.disabled = false;
+    });
+
+    noticeList.addEventListener("click", async function (event) {
+      const button = event.target.closest("button");
+
+      if (!button) {
+        return;
+      }
+
+      const noticeId = Number(button.dataset.id);
+      const action = button.dataset.action;
+
+      if (action === "edit") {
+        const selectedNotice = noticesCache.find(function (notice) {
+          return notice.id === noticeId;
+        });
+
+        if (!selectedNotice) {
+          return;
+        }
+
+        editingNoticeId = selectedNotice.id;
+        titleInput.value = selectedNotice.title;
+        contentInput.value = selectedNotice.content;
+
+        formHeading.textContent = "নোটিশ পরিবর্তন করুন";
+        submitBu
