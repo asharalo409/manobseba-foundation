@@ -3,26 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <meta name="theme-color" content="#0d7a45" />
   <title>মানবসেবা ফাউন্ডেশন</title>
-
-  <meta
-    name="description"
-    content="মানবসেবা ফাউন্ডেশন সুবিধাবঞ্চিত মানুষের পাশে দাঁড়াতে শিক্ষা, স্বাস্থ্য ও মানবিক সহায়তা কার্যক্রম পরিচালনা করে।"
-  />
 
   <style>
     :root {
-      --primary: #0b6e4f;
-      --primary-dark: #07513a;
-      --primary-light: #e7f4ed;
-      --secondary: #f4b400;
-      --dark: #17212b;
-      --text: #52605a;
-      --light: #f4f8f6;
-      --white: #ffffff;
-      --border: #dfe9e4;
-      --shadow: 0 12px 35px rgba(16, 57, 43, 0.1);
+      --primary: #087a43;
+      --primary-dark: #045a31;
+      --secondary: #e9a420;
+      --bg: #f4f8f6;
+      --card: #ffffff;
+      --text: #18221d;
+      --muted: #64716a;
+      --border: #deebe3;
+      --header-bg: rgba(255, 255, 255, 0.94);
+      --shadow: 0 12px 30px rgba(9, 74, 42, 0.12);
+      --danger: #d93b3b;
+    }
+
+    body.dark {
+      --primary: #32c67a;
+      --primary-dark: #15995a;
+      --secondary: #f7ba3a;
+      --bg: #101713;
+      --card: #18231d;
+      --text: #edf8f0;
+      --muted: #adbbb1;
+      --border: #2d4234;
+      --header-bg: rgba(16, 23, 19, 0.94);
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
     }
 
     * {
@@ -36,10 +45,11 @@
     }
 
     body {
-      color: var(--dark);
-      background: var(--white);
-      font-family: Arial, "Noto Sans Bengali", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Noto Sans Bengali", "Hind Siliguri", Arial, sans-serif;
       line-height: 1.7;
+      transition: background 0.25s, color 0.25s;
     }
 
     a {
@@ -47,36 +57,54 @@
       text-decoration: none;
     }
 
+    button {
+      border: none;
+      cursor: pointer;
+      font: inherit;
+    }
+
     .container {
-      width: min(1130px, 92%);
-      margin: 0 auto;
+      width: min(1160px, 92%);
+      margin: auto;
     }
 
-    .topbar {
-      padding: 8px 0;
-      color: #e9f8f1;
+    .top-strip {
       background: var(--primary-dark);
-      font-size: 14px;
+      color: #ffffff;
+      font-size: 0.9rem;
     }
 
-    .topbar-content {
+    .top-strip .container {
       display: flex;
       justify-content: space-between;
-      gap: 12px;
+      gap: 15px;
+      align-items: center;
+      min-height: 38px;
       flex-wrap: wrap;
     }
 
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.97);
-      backdrop-filter: blur(10px);
+    .top-info,
+    .social-mini {
+      display: flex;
+      gap: 16px;
+      align-items: center;
     }
 
-    .nav-content {
-      min-height: 74px;
+    .social-mini a {
+      opacity: 0.94;
+    }
+
+    .main-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--header-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .navbar {
+      min-height: 76px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -86,117 +114,147 @@
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
-      color: var(--primary);
-      font-size: 19px;
-      font-weight: 700;
-      white-space: nowrap;
+      gap: 12px;
+      min-width: 220px;
     }
 
-    .brand-icon {
+    .logo {
+      width: 49px;
+      height: 49px;
+      border-radius: 50%;
       display: grid;
       place-items: center;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      color: var(--white);
-      background: var(--primary);
-      font-size: 20px;
+      color: #fff;
+      font-size: 1.42rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary), #28ad66);
+      box-shadow: 0 7px 18px rgba(8, 122, 67, 0.28);
+    }
+
+    .brand h1 {
+      font-size: 1.08rem;
+      line-height: 1.25;
+    }
+
+    .brand p {
+      color: var(--muted);
+      font-size: 0.75rem;
     }
 
     .nav-links {
+      list-style: none;
       display: flex;
       align-items: center;
-      gap: 17px;
-      color: #34423b;
-      font-size: 14px;
-      font-weight: 700;
+      justify-content: center;
+      gap: 18px;
+      font-size: 0.9rem;
+      font-weight: 600;
     }
 
     .nav-links a:hover {
       color: var(--primary);
     }
 
-    .login-link {
-      padding: 8px 12px;
-      border-radius: 7px;
-      color: var(--white) !important;
-      background: var(--primary);
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .login-link:hover {
-      color: var(--white) !important;
-      background: var(--primary-dark);
+    .icon-btn,
+    .language-btn {
+      color: var(--text);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 10px;
+      min-width: 42px;
+      transition: 0.2s;
+    }
+
+    .icon-btn:hover,
+    .language-btn:hover {
+      color: #fff;
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .menu-btn {
+      display: none;
     }
 
     .hero {
+      min-height: 590px;
+      display: grid;
+      place-items: center;
       position: relative;
       overflow: hidden;
-      padding: 95px 0 115px;
-      color: var(--white);
       background:
-        radial-gradient(circle at 85% 10%, rgba(244, 180, 0, 0.25), transparent 25%),
-        radial-gradient(circle at 5% 90%, rgba(255, 255, 255, 0.12), transparent 28%),
-        linear-gradient(125deg, #064a36, #0b6e4f);
+        linear-gradient(90deg, rgba(0, 45, 22, 0.87), rgba(2, 87, 43, 0.53)),
+        url("https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1800&q=85")
+        center/cover;
+      color: #fff;
     }
 
     .hero::after {
-      position: absolute;
-      right: -65px;
-      bottom: -90px;
-      width: 300px;
-      height: 300px;
-      border: 45px solid rgba(255, 255, 255, 0.08);
-      border-radius: 50%;
       content: "";
+      position: absolute;
+      width: 430px;
+      height: 430px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      right: -120px;
+      bottom: -220px;
     }
 
     .hero-content {
       position: relative;
-      z-index: 1;
-      max-width: 740px;
+      z-index: 2;
+      padding: 75px 0;
+      display: grid;
+      grid-template-columns: 1.4fr 0.8fr;
+      gap: 46px;
+      align-items: center;
     }
 
     .hero-tag {
-      display: inline-block;
-      margin-bottom: 15px;
-      padding: 6px 13px;
-      border: 1px solid rgba(255, 255, 255, 0.4);
+      display: inline-flex;
+      padding: 7px 14px;
       border-radius: 30px;
-      background: rgba(255, 255, 255, 0.1);
-      font-size: 14px;
-      font-weight: 700;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      font-size: 0.87rem;
+      margin-bottom: 16px;
     }
 
-    .hero h1 {
-      max-width: 720px;
-      margin-bottom: 18px;
-      font-size: clamp(35px, 6vw, 64px);
+    .hero h2 {
+      font-size: clamp(2.15rem, 5vw, 4.4rem);
       line-height: 1.18;
+      max-width: 730px;
+      margin-bottom: 15px;
     }
 
     .hero p {
-      max-width: 620px;
-      margin-bottom: 29px;
-      color: #e7f7ef;
-      font-size: 18px;
+      max-width: 640px;
+      font-size: 1.04rem;
+      opacity: 0.94;
+      margin-bottom: 27px;
     }
 
-    .hero-actions {
+    .hero-buttons {
       display: flex;
-      flex-wrap: wrap;
       gap: 12px;
+      flex-wrap: wrap;
     }
 
     .btn {
-      display: inline-block;
-      padding: 12px 21px;
-      border: 0;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      padding: 12px 19px;
       font-weight: 700;
-      transition: 0.2s ease;
+      transition: transform 0.2s, background 0.2s;
     }
 
     .btn:hover {
@@ -204,540 +262,714 @@
     }
 
     .btn-primary {
-      color: var(--primary-dark);
-      background: var(--white);
-    }
-
-    .btn-primary:hover {
-      background: #e7f5ed;
+      background: var(--secondary);
+      color: #2b2108;
     }
 
     .btn-outline {
-      border: 1px solid rgba(255, 255, 255, 0.75);
-      color: var(--white);
-      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      color: #fff;
+      background: rgba(255, 255, 255, 0.06);
     }
 
-    .btn-outline:hover {
-      color: var(--primary);
-      background: var(--white);
+    .clock-card {
+      padding: 28px 22px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 22px;
+      background: rgba(0, 32, 17, 0.4);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.17);
     }
 
-    .stats {
+    .clock-card h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 10px;
+      opacity: 0.9;
+    }
+
+    #digital-clock {
+      font-size: clamp(2.2rem, 5vw, 3.25rem);
+      letter-spacing: 2px;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    #bangla-date {
+      color: #e9f5ed;
+      font-size: 0.9rem;
+      margin-top: 8px;
+    }
+
+    .clock-line {
+      width: 72%;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.27);
+      margin: 18px auto;
+    }
+
+    .clock-card small {
+      color: #d6eadc;
+    }
+
+    .quick-stats {
       position: relative;
-      z-index: 2;
-      margin-top: -43px;
+      z-index: 5;
+      margin-top: -54px;
     }
 
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      overflow: hidden;
-      border-radius: 14px;
-      background: var(--white);
-      box-shadow: var(--shadow);
+      gap: 15px;
     }
 
-    .stat {
-      padding: 25px 16px;
-      border-right: 1px solid var(--border);
+    .stat-card {
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: var(--card);
+      padding: 20px 16px;
+      box-shadow: var(--shadow);
       text-align: center;
     }
 
-    .stat:last-child {
-      border-right: none;
-    }
-
-    .stat strong {
-      display: block;
+    .stat-card strong {
       color: var(--primary);
-      font-size: 30px;
+      display: block;
+      font-size: 1.72rem;
+      line-height: 1.1;
     }
 
-    .stat span {
-      color: var(--text);
-      font-size: 14px;
+    .stat-card span {
+      color: var(--muted);
+      font-size: 0.86rem;
     }
 
     section {
-      padding: 78px 0;
+      padding: 84px 0;
     }
 
-    .section-heading {
-      max-width: 680px;
-      margin: 0 auto 39px;
+    .section-head {
       text-align: center;
+      margin-bottom: 38px;
     }
 
-    .section-heading span {
+    .section-head .mini-title {
       color: var(--primary);
-      font-size: 15px;
-      font-weight: 700;
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 800;
+      margin-bottom: 5px;
     }
 
-    .section-heading h2 {
-      margin: 5px 0 10px;
-      font-size: clamp(29px, 4vw, 41px);
+    .section-head h2 {
+      font-size: clamp(1.7rem, 3.5vw, 2.45rem);
       line-height: 1.3;
     }
 
-    .section-heading p {
-      color: var(--text);
-    }
-
-    .about-section {
-      background: var(--light);
+    .section-head p {
+      color: var(--muted);
+      max-width: 680px;
+      margin: 10px auto 0;
     }
 
     .about-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 50px;
       align-items: center;
-      gap: 56px;
     }
 
-    .about-visual {
-      position: relative;
-      display: grid;
-      place-items: center;
-      min-height: 370px;
+    .about-image {
+      min-height: 355px;
+      border-radius: 20px;
       overflow: hidden;
-      border-radius: 18px;
-      color: var(--white);
       background:
-        radial-gradient(circle at 20% 20%, rgba(244, 180, 0, 0.8), transparent 15%),
-        linear-gradient(135deg, #0b6e4f, #064a36);
-    }
-
-    .about-visual::before,
-    .about-visual::after {
-      position: absolute;
-      border: 25px solid rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      content: "";
-    }
-
-    .about-visual::before {
-      top: -55px;
-      left: -55px;
-      width: 210px;
-      height: 210px;
-    }
-
-    .about-visual::after {
-      right: -65px;
-      bottom: -65px;
-      width: 250px;
-      height: 250px;
-    }
-
-    .heart-visual {
-      position: relative;
-      z-index: 1;
-      font-size: 110px;
-      filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.18));
-    }
-
-    .about-text > span {
-      color: var(--primary);
-      font-size: 15px;
-      font-weight: 700;
+        linear-gradient(0deg, rgba(2, 75, 38, 0.3), rgba(2, 75, 38, 0.02)),
+        url("https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=1000&q=85")
+        center/cover;
     }
 
     .about-text h2 {
-      margin: 7px 0 16px;
-      font-size: clamp(29px, 4vw, 40px);
-      line-height: 1.3;
+      font-size: 2.1rem;
+      line-height: 1.35;
+      margin-bottom: 15px;
     }
 
     .about-text p {
-      margin-bottom: 15px;
-      color: var(--text);
+      color: var(--muted);
+      margin-bottom: 16px;
     }
 
-    .about-button {
-      margin-top: 9px;
-      color: var(--white);
-      background: var(--primary);
-    }
-
-    .about-button:hover {
-      background: var(--primary-dark);
-    }
-
-    .program-grid,
-    .notice-grid {
+    .check-list {
+      list-style: none;
       display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 11px;
+      margin: 22px 0;
+    }
+
+    .check-list li::before {
+      content: "✓";
+      color: #fff;
+      background: var(--primary);
+      width: 21px;
+      height: 21px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 50%;
+      margin-right: 8px;
+      font-size: 0.76rem;
+    }
+
+    .activity-grid,
+    .notice-grid,
+    .gallery-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .activity-grid {
       grid-template-columns: repeat(3, 1fr);
-      gap: 21px;
     }
 
-    .program-card {
-      padding: 28px;
+    .activity-card,
+    .notice-card {
+      background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      background: var(--white);
-      transition: 0.2s ease;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: 0.2s;
     }
 
-    .program-card:hover {
+    .activity-card:hover,
+    .notice-card:hover {
       transform: translateY(-5px);
       box-shadow: var(--shadow);
     }
 
-    .program-icon {
-      display: grid;
-      place-items: center;
-      width: 55px;
-      height: 55px;
-      margin-bottom: 17px;
-      border-radius: 12px;
+    .activity-image {
+      height: 190px;
+      background-position: center;
+      background-size: cover;
+    }
+
+    .activity-content {
+      padding: 19px;
+    }
+
+    .tag {
       color: var(--primary);
-      background: var(--primary-light);
-      font-size: 27px;
+      font-size: 0.79rem;
+      font-weight: 800;
     }
 
-    .program-card h3 {
-      margin-bottom: 9px;
-      font-size: 21px;
+    .activity-content h3 {
+      font-size: 1.2rem;
+      margin: 7px 0;
     }
 
-    .program-card p {
-      color: var(--text);
-      font-size: 15px;
+    .activity-content p {
+      color: var(--muted);
+      font-size: 0.9rem;
     }
 
     .notice-section {
-      background: var(--light);
+      background: color-mix(in srgb, var(--primary) 5%, var(--bg));
+    }
+
+    .notice-grid {
+      grid-template-columns: 1fr 1fr;
     }
 
     .notice-card {
-      min-height: 195px;
-      padding: 23px;
-      border-left: 4px solid var(--primary);
-      border-radius: 10px;
-      background: var(--white);
-      box-shadow: 0 5px 18px rgba(16, 57, 43, 0.06);
+      padding: 22px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
     }
 
     .notice-date {
-      display: block;
-      margin-bottom: 8px;
+      flex: 0 0 62px;
+      text-align: center;
+      border-radius: 11px;
+      background: color-mix(in srgb, var(--primary) 12%, var(--card));
       color: var(--primary);
-      font-size: 14px;
+      padding: 8px 5px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .notice-date b {
+      display: block;
+      font-size: 1.5rem;
+    }
+
+    .notice-body h3 {
+      font-size: 1.07rem;
+      margin-bottom: 4px;
+    }
+
+    .notice-body p {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .notice-category {
+      display: inline-block;
+      background: #fff3d6;
+      color: #996000;
+      border-radius: 20px;
+      padding: 2px 9px;
+      font-size: 0.73rem;
       font-weight: 700;
+      margin-top: 8px;
     }
 
-    .notice-card h3 {
-      margin-bottom: 8px;
-      font-size: 19px;
-      line-height: 1.4;
+    body.dark .notice-category {
+      background: #4a3818;
+      color: #ffd670;
     }
 
-    .notice-card p {
-      color: var(--text);
-      font-size: 14px;
-      white-space: pre-wrap;
+    .gallery-grid {
+      grid-template-columns: 1.2fr 0.8fr 0.8fr;
+      grid-template-rows: 190px 190px;
+    }
+
+    .gallery-item {
+      overflow: hidden;
+      border-radius: 14px;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .gallery-item:first-child {
+      grid-row: span 2;
+    }
+
+    .gallery-item::after {
+      content: "দেখুন";
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 34px 14px 13px;
+      color: #fff;
+      font-weight: 700;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+      opacity: 0;
+      transition: 0.2s;
+    }
+
+    .gallery-item:hover::after {
+      opacity: 1;
     }
 
     .join-section {
-      color: var(--white);
-      text-align: center;
+      color: #fff;
       background:
-        radial-gradient(circle at 10% 0%, rgba(244, 180, 0, 0.25), transparent 28%),
-        var(--primary);
+        linear-gradient(100deg, rgba(3, 77, 39, 0.95), rgba(8, 122, 67, 0.83)),
+        url("https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=1600&q=80")
+        center/cover;
     }
 
-    .join-section h2 {
-      margin-bottom: 12px;
-      font-size: clamp(29px, 4vw, 41px);
+    .join-content {
+      text-align: center;
+      max-width: 790px;
+      margin: auto;
     }
 
-    .join-section p {
-      max-width: 660px;
-      margin: 0 auto 24px;
-      color: #e5f6ed;
+    .join-content h2 {
+      font-size: clamp(1.85rem, 4vw, 2.8rem);
+      margin-bottom: 10px;
     }
 
-    .join-section .btn {
-      color: var(--primary);
-      background: var(--white);
+    .join-content p {
+      opacity: 0.94;
+      margin-bottom: 24px;
     }
 
     .footer {
-      padding: 50px 0 20px;
-      color: #c6d9d0;
-      background: #102b21;
+      background: #062c19;
+      color: #d7eadf;
+      padding: 55px 0 0;
     }
 
     .footer-grid {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-columns: 1.4fr 0.9fr 1fr;
       gap: 35px;
-      padding-bottom: 32px;
+      padding-bottom: 35px;
     }
 
     .footer h3 {
+      color: #fff;
       margin-bottom: 12px;
-      color: var(--white);
-      font-size: 19px;
+      font-size: 1.1rem;
     }
 
     .footer p,
-    .footer a {
-      color: #c2d5cb;
-      font-size: 15px;
+    .footer li {
+      font-size: 0.9rem;
+      color: #c2d8ca;
     }
 
-    .footer a {
-      display: block;
+    .footer ul {
+      list-style: none;
+    }
+
+    .footer li {
       margin-bottom: 7px;
     }
 
-    .footer a:hover {
-      color: var(--white);
-    }
-
-    .copyright {
-      padding-top: 19px;
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
-      color: #9fb8ac;
-      font-size: 14px;
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 16px 0;
       text-align: center;
+      font-size: 0.83rem;
+      color: #b9d0c0;
     }
 
-    @media (max-width: 920px) {
+    .search-panel {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      inset: 0;
+      padding: 90px 15px 15px;
+      background: rgba(0, 0, 0, 0.66);
+    }
+
+    .search-box {
+      max-width: 700px;
+      margin: auto;
+      background: var(--card);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .search-box-top {
+      display: flex;
+      gap: 10px;
+    }
+
+    .search-box input {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      padding: 13px 14px;
+      background: var(--bg);
+      color: var(--text);
+      font: inherit;
+    }
+
+    .close-search {
+      color: #fff;
+      background: var(--danger);
+      border-radius: 10px;
+      padding: 0 14px;
+    }
+
+    #search-results {
+      max-height: 290px;
+      overflow: auto;
+      margin-top: 14px;
+    }
+
+    .search-item {
+      display: block;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 6px;
+    }
+
+    .search-item strong {
+      display: block;
+      color: var(--primary);
+    }
+
+    .search-item span {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .no-result {
+      color: var(--muted);
+      padding: 15px 5px;
+    }
+
+    @media (max-width: 930px) {
       .nav-links {
-        gap: 11px;
-        font-size: 13px;
+        display: none;
       }
 
+      .menu-btn {
+        display: inline-block;
+      }
+
+      .hero-content,
       .about-grid {
-        gap: 35px;
+        grid-template-columns: 1fr;
+      }
+
+      .clock-card {
+        max-width: 410px;
+      }
+
+      .activity-grid {
+        grid-template-columns: 1fr 1fr;
       }
     }
 
-    @media (max-width: 760px) {
-      .nav-content {
-        padding: 12px 0;
-        align-items: flex-start;
+    @media (max-width: 650px) {
+      .top-strip .container {
+        justify-content: center;
+        padding: 6px 0;
       }
 
-      .nav-links {
-        justify-content: flex-end;
-        flex-wrap: wrap;
+      .top-info {
+        justify-content: center;
+      }
+
+      .social-mini {
+        display: none;
+      }
+
+      .navbar {
+        min-height: 67px;
+      }
+
+      .brand {
+        min-width: auto;
+      }
+
+      .brand p {
+        display: none;
+      }
+
+      .brand h1 {
+        font-size: 0.93rem;
+      }
+
+      .logo {
+        width: 42px;
+        height: 42px;
+      }
+
+      .header-actions {
+        gap: 5px;
+      }
+
+      .language-btn {
+        display: none;
+      }
+
+      .hero {
+        min-height: 660px;
+      }
+
+      .hero-content {
+        padding: 55px 0 95px;
+        gap: 28px;
+      }
+
+      .hero h2 {
+        font-size: 2.35rem;
       }
 
       .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr 1fr;
       }
 
-      .stat:nth-child(2) {
-        border-right: none;
+      .quick-stats {
+        margin-top: -74px;
       }
 
-      .stat:nth-child(-n + 2) {
-        border-bottom: 1px solid var(--border);
+      section {
+        padding: 62px 0;
       }
 
-      .about-grid,
+      .check-list,
+      .activity-grid,
+      .notice-grid,
       .footer-grid {
         grid-template-columns: 1fr;
       }
 
-      .about-visual {
-        min-height: 250px;
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 170px 170px;
       }
 
-      .program-grid,
-      .notice-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 510px) {
-      .topbar-content {
-        flex-direction: column;
-      }
-
-      .nav-content {
-        flex-direction: column;
-      }
-
-      .brand {
-        font-size: 17px;
-      }
-
-      .nav-links {
-        width: 100%;
-        justify-content: flex-start;
-      }
-
-      .hero {
-        padding: 70px 0 105px;
-      }
-
-      .hero p {
-        font-size: 16px;
-      }
-
-      .stats-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .stat,
-      .stat:nth-child(2) {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .stat:last-child {
-        border-bottom: none;
-      }
-
-      .hero-actions {
-        flex-direction: column;
-      }
-
-      .hero-actions .btn {
-        text-align: center;
+      .gallery-item:first-child {
+        grid-row: span 2;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="topbar">
-    <div class="container topbar-content">
-      <span>মানবতার সেবায় আমরা একসাথে</span>
-      <span>ইমেইল: taseenbillah409@gmail.com</span>
+  <div class="top-strip">
+    <div class="container">
+      <div class="top-info">
+        <span>📍 বাংলাদেশ</span>
+        <span>📞 +880 1XXXXXXXXX</span>
+        <span>✉️ info@manobseba.org</span>
+      </div>
+
+      <div class="social-mini">
+        <a href="#" onclick="showMessage('Facebook লিংক পরের ধাপে যুক্ত করা হবে।'); return false;">Facebook</a>
+        <a href="#" onclick="showMessage('YouTube লিংক পরের ধাপে যুক্ত করা হবে।'); return false;">YouTube</a>
+      </div>
     </div>
   </div>
 
-  <header class="navbar">
-    <div class="container nav-content">
+  <header class="main-header">
+    <nav class="navbar container">
       <a class="brand" href="#home">
-        <span class="brand-icon">❤</span>
-        <span>মানবসেবা ফাউন্ডেশন</span>
+        <div class="logo">ম</div>
+        <div>
+          <h1>মানবসেবা ফাউন্ডেশন</h1>
+          <p>মানবতার সেবায় আমরা একসাথে</p>
+        </div>
       </a>
 
-      <nav class="nav-links">
-        <a href="#home">হোম</a>
-        <a href="#about">আমাদের সম্পর্কে</a>
-        <a href="#programs">কার্যক্রম</a>
-        <a href="#notices">নোটিশ</a>
-        <a href="#contact">যোগাযোগ</a>
-        <a class="login-link" href="login.html">অফিসার লগইন</a>
-      </nav>
-    </div>
+      <ul class="nav-links">
+        <li><a href="#home">হোম</a></li>
+        <li><a href="#about">আমাদের সম্পর্কে</a></li>
+        <li><a href="#activities">কার্যক্রম</a></li>
+        <li><a href="#notices">নোটিশ</a></li>
+        <li><a href="#gallery">গ্যালারি</a></li>
+        <li><a href="#contact">যোগাযোগ</a></li>
+      </ul>
+
+      <div class="header-actions">
+        <button class="icon-btn" onclick="openSearch()" title="সার্চ">🔍</button>
+        <button class="language-btn" id="language-btn" onclick="toggleLanguage()">বাংলা</button>
+        <button class="icon-btn" id="theme-btn" onclick="toggleTheme()" title="থিম পরিবর্তন">🌙</button>
+        <button class="icon-btn menu-btn" onclick="showMessage('মোবাইল মেনুর পূর্ণ ব্যবস্থা পরের ধাপে যোগ করা হবে।');">☰</button>
+      </div>
+    </nav>
   </header>
 
   <main>
     <section class="hero" id="home">
       <div class="container hero-content">
-        <span class="hero-tag">মানবতা • শিক্ষা • স্বাস্থ্য • সহযোগিতা</span>
+        <div>
+          <span class="hero-tag">🤝 সমাজসেবা • মানবতা • স্বেচ্ছাসেবা</span>
+          <h2>মানবতার পাশে দাঁড়ানোই আমাদের অঙ্গীকার</h2>
+          <p>
+            মানবসেবা ফাউন্ডেশন অসহায়, সুবিধাবঞ্চিত এবং বিপদগ্রস্ত মানুষের পাশে
+            দাঁড়াতে কাজ করে। শিক্ষা, স্বাস্থ্য, খাদ্য, রক্তদান ও দুর্যোগ সহায়তায়
+            আমাদের স্বেচ্ছাসেবকেরা একসাথে কাজ করছেন।
+          </p>
 
-        <h1>একটু সহায়তা বদলে দিতে পারে একটি জীবন</h1>
+          <div class="hero-buttons">
+            <a class="btn btn-primary" href="#activities">আমাদের কার্যক্রম</a>
+            <a class="btn btn-outline" href="login.html">অফিসার লগইন</a>
+            <button class="btn btn-outline" onclick="showMessage('সদস্য নিবন্ধন পেজটি পরের ধাপে তৈরি করা হবে।');">সদস্য হোন</button>
+          </div>
+        </div>
 
-        <p>
-          মানবসেবা ফাউন্ডেশন সুবিধাবঞ্চিত মানুষের পাশে দাঁড়াতে,
-          শিক্ষা ও স্বাস্থ্যসেবার সুযোগ বাড়াতে এবং একটি সুন্দর সমাজ গড়তে কাজ করে।
-        </p>
-
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#programs">আমাদের কার্যক্রম</a>
-          <a class="btn btn-outline" href="#contact">স্বেচ্ছাসেবক হোন</a>
+        <div class="clock-card">
+          <h3>বর্তমান সময়</h3>
+          <div id="digital-clock">00:00:00</div>
+          <p id="bangla-date">তারিখ লোড হচ্ছে...</p>
+          <div class="clock-line"></div>
+          <small>মানবতার সেবায়, একসাথে এগিয়ে চলি</small>
         </div>
       </div>
     </section>
 
-    <section class="stats">
-      <div class="container">
-        <div class="stats-grid">
-          <div class="stat">
-            <strong>১,২০০+</strong>
-            <span>সুবিধাভোগী পরিবার</span>
-          </div>
-
-          <div class="stat">
-            <strong>৫০+</strong>
-            <span>স্বেচ্ছাসেবক</span>
-          </div>
-
-          <div class="stat">
-            <strong>২৪+</strong>
-            <span>সফল কার্যক্রম</span>
-          </div>
-
-          <div class="stat">
-            <strong>৮</strong>
-            <span>কর্মএলাকা</span>
-          </div>
+    <section class="quick-stats">
+      <div class="container stats-grid">
+        <div class="stat-card">
+          <strong>০+</strong>
+          <span>সক্রিয় সদস্য</span>
+        </div>
+        <div class="stat-card">
+          <strong>০+</strong>
+          <span>স্বেচ্ছাসেবক</span>
+        </div>
+        <div class="stat-card">
+          <strong>০+</strong>
+          <span>সম্পন্ন কার্যক্রম</span>
+        </div>
+        <div class="stat-card">
+          <strong>০+</strong>
+          <span>সহায়তাপ্রাপ্ত পরিবার</span>
         </div>
       </div>
     </section>
 
-    <section class="about-section" id="about">
+    <section id="about">
       <div class="container about-grid">
-        <div class="about-visual">
-          <span class="heart-visual">❤</span>
-        </div>
+        <div class="about-image"></div>
 
         <div class="about-text">
-          <span>আমাদের কথা</span>
-
-          <h2>মানুষের জন্য, মানুষের পাশে</h2>
-
+          <span class="tag">আমাদের পরিচিতি</span>
+          <h2>মানবসেবার মাধ্যমে একটি সুন্দর সমাজ গড়ার স্বপ্ন</h2>
           <p>
-            মানবসেবা ফাউন্ডেশন একটি অরাজনৈতিক ও অলাভজনক সামাজিক উদ্যোগ।
-            আমরা বিশ্বাস করি—সম্মিলিত ছোট ছোট উদ্যোগও সমাজে বড় পরিবর্তন আনতে পারে।
+            মানবসেবা ফাউন্ডেশন একটি স্বেচ্ছাসেবী সামাজিক সংগঠন। আমরা মানুষের
+            মৌলিক প্রয়োজন, শিক্ষা সহায়তা, স্বাস্থ্যসেবা, রক্তদান এবং দুর্যোগকালীন
+            সহায়তায় কাজ করার লক্ষ্য নিয়ে এগিয়ে যাচ্ছি।
+          </p>
+          <p>
+            সদস্য, স্বেচ্ছাসেবক ও শুভাকাঙ্ক্ষীদের সম্মিলিত প্রচেষ্টাই আমাদের
+            শক্তি। স্বচ্ছতা, দায়িত্ববোধ ও মানবিকতা আমাদের কাজের মূল নীতি।
           </p>
 
-          <p>
-            আমাদের লক্ষ্য হলো দরিদ্র, অসহায় এবং পিছিয়ে পড়া মানুষদের প্রয়োজনীয়
-            সহায়তা পৌঁছে দেওয়া এবং তাদের আত্মনির্ভর হওয়ার পথ তৈরি করা।
-          </p>
+          <ul class="check-list">
+            <li>মানবিক সহায়তা</li>
+            <li>শিক্ষা সহায়তা</li>
+            <li>রক্তদান কর্মসূচি</li>
+            <li>দুর্যোগকালীন সেবা</li>
+          </ul>
 
-          <a class="btn about-button" href="#contact">আমাদের সঙ্গে যুক্ত হোন</a>
+          <button class="btn" style="background: var(--primary); color: #fff;" onclick="showMessage('আমাদের সম্পর্কে আলাদা পেজ পরের ধাপে তৈরি করা হবে।');">
+            আরও জানুন
+          </button>
         </div>
       </div>
     </section>
 
-    <section id="programs">
+    <section id="activities">
       <div class="container">
-        <div class="section-heading">
-          <span>আমাদের উদ্যোগ</span>
-
-          <h2>যে কাজগুলো আমরা করি</h2>
-
+        <div class="section-head">
+          <span class="mini-title">আমাদের উদ্যোগ</span>
+          <h2>প্রধান কার্যক্রমসমূহ</h2>
           <p>
-            মানুষের জরুরি প্রয়োজনকে অগ্রাধিকার দিয়ে আমরা বিভিন্ন সামাজিক কার্যক্রম পরিচালনা করি।
+            মানুষের প্রয়োজন অনুযায়ী বিভিন্ন সামাজিক ও মানবিক কার্যক্রম পরিচালনা
+            করা হবে।
           </p>
         </div>
 
-        <div class="program-grid">
-          <article class="program-card">
-            <div class="program-icon">🎓</div>
-            <h3>শিক্ষা সহায়তা</h3>
-            <p>
-              দরিদ্র শিক্ষার্থীদের শিক্ষা উপকরণ, বৃত্তি ও পড়াশোনার প্রয়োজনীয় সহায়তা দেওয়া।
-            </p>
+        <div class="activity-grid">
+          <article class="activity-card">
+            <div class="activity-image" style="background-image: url('https://images.unsplash.com/photo-1594708767771-a7502209ff51?auto=format&fit=crop&w=900&q=80');"></div>
+            <div class="activity-content">
+              <span class="tag">মানবিক সহায়তা</span>
+              <h3>খাদ্য ও ত্রাণ বিতরণ</h3>
+              <p>অসহায় পরিবার ও দুর্যোগে ক্ষতিগ্রস্ত মানুষের জন্য জরুরি সহায়তা কার্যক্রম।</p>
+            </div>
           </article>
 
-          <article class="program-card">
-            <div class="program-icon">❤</div>
-            <h3>স্বাস্থ্যসেবা</h3>
-            <p>
-              বিনামূল্যে স্বাস্থ্য ক্যাম্প, রক্তদান কর্মসূচি এবং প্রয়োজনীয় চিকিৎসা সহায়তা।
-            </p>
+          <article class="activity-card">
+            <div class="activity-image" style="background-image: url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=900&q=80');"></div>
+            <div class="activity-content">
+              <span class="tag">শিক্ষা সহায়তা</span>
+              <h3>শিক্ষার্থীদের পাশে</h3>
+              <p>সুবিধাবঞ্চিত শিক্ষার্থীদের শিক্ষা উপকরণ, বই ও বৃত্তি সহায়তা।</p>
+            </div>
           </article>
 
-          <article class="program-card">
-            <div class="program-icon">🤝</div>
-            <h3>ত্রাণ ও পুনর্বাসন</h3>
-            <p>
-              দুর্যোগ, শীত ও জরুরি পরিস্থিতিতে অসহায় পরিবারগুলোর পাশে দাঁড়ানো।
-            </p>
+          <article class="activity-card">
+            <div class="activity-image" style="background-image: url('https://images.unsplash.com/photo-1615461066841-6116e61058f4?auto=format&fit=crop&w=900&q=80');"></div>
+            <div class="activity-content">
+              <span class="tag">স্বাস্থ্যসেবা</span>
+              <h3>রক্তদান ও স্বাস্থ্য ক্যাম্প</h3>
+              <p>রক্তদাতা নেটওয়ার্ক, ফ্রি চিকিৎসা ক্যাম্প এবং সচেতনতামূলক কর্মসূচি।</p>
+            </div>
           </article>
         </div>
       </div>
@@ -745,138 +977,281 @@
 
     <section class="notice-section" id="notices">
       <div class="container">
-        <div class="section-heading">
-          <span>সর্বশেষ তথ্য</span>
-
-          <h2>নোটিশ ও কার্যক্রম</h2>
-
-          <p>
-            মানবসেবা ফাউন্ডেশনের সর্বশেষ নোটিশ ও কার্যক্রমের তথ্য দেখুন।
-          </p>
+        <div class="section-head">
+          <span class="mini-title">ঘোষণা ও সংবাদ</span>
+          <h2>সর্বশেষ নোটিশ</h2>
+          <p>বর্তমান নোটিশগুলো এখন নমুনা হিসেবে দেখানো হচ্ছে। পরের ধাপে Supabase থেকে স্বয়ংক্রিয়ভাবে আসবে।</p>
         </div>
 
-        <div id="notice-list" class="notice-grid">
+        <div class="notice-grid">
           <article class="notice-card">
-            <span class="notice-date">লোড হচ্ছে...</span>
-            <h3>সর্বশেষ নোটিশ আনা হচ্ছে</h3>
-            <p>অনুগ্রহ করে একটু অপেক্ষা করুন।</p>
+            <div class="notice-date"><b>০১</b>অক্টোবর</div>
+            <div class="notice-body">
+              <h3>মানবসেবা ফাউন্ডেশনের নতুন ওয়েবসাইট চালু</h3>
+              <p>সদস্য, কার্যক্রম, নোটিশ ও প্রশাসনিক কাজ ডিজিটালভাবে পরিচালনার প্রস্তুতি শুরু হয়েছে।</p>
+              <span class="notice-category">সাধারণ নোটিশ</span>
+            </div>
+          </article>
+
+          <article class="notice-card">
+            <div class="notice-date"><b>০৫</b>অক্টোবর</div>
+            <div class="notice-body">
+              <h3>স্বেচ্ছাসেবক সদস্য সংগ্রহ কার্যক্রম</h3>
+              <p>সমাজসেবামূলক কাজে আগ্রহী ব্যক্তিদের সদস্য হওয়ার জন্য আবেদন করার আহ্বান জানানো হচ্ছে।</p>
+              <span class="notice-category">সদস্য নোটিশ</span>
+            </div>
+          </article>
+
+          <article class="notice-card">
+            <div class="notice-date"><b>১০</b>অক্টোবর</div>
+            <div class="notice-body">
+              <h3>রক্তদাতা তথ্যভান্ডার তৈরি করা হবে</h3>
+              <p>জরুরি প্রয়োজনে রক্তদাতা খুঁজে পেতে সদস্যদের রক্তের গ্রুপভিত্তিক তালিকা তৈরি করা হবে।</p>
+              <span class="notice-category">স্বাস্থ্যসেবা</span>
+            </div>
+          </article>
+
+          <article class="notice-card">
+            <div class="notice-date"><b>১৫</b>অক্টোবর</div>
+            <div class="notice-body">
+              <h3>মাসিক সদস্য সভা ও পরিকল্পনা সভা</h3>
+              <p>ফাউন্ডেশনের ভবিষ্যৎ কার্যক্রম ও সদস্যদের দায়িত্ব নির্ধারণের জন্য সভা অনুষ্ঠিত হবে।</p>
+              <span class="notice-category">ইভেন্ট</span>
+            </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="join-section" id="contact">
+    <section id="gallery">
       <div class="container">
-        <h2>আপনার অংশগ্রহণ গুরুত্বপূর্ণ</h2>
+        <div class="section-head">
+          <span class="mini-title">স্মৃতির ফ্রেমে</span>
+          <h2>কার্যক্রমের গ্যালারি</h2>
+          <p>পরবর্তী ধাপে অ্যাডমিন প্যানেল থেকে ছবি ও ভিডিও সরাসরি যোগ করা যাবে।</p>
+        </div>
 
+        <div class="gallery-grid">
+          <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1497486751825-1233686d5d80?auto=format&fit=crop&w=1000&q=80');"></div>
+          <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=700&q=80');"></div>
+          <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=700&q=80');"></div>
+          <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=700&q=80');"></div>
+          <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=700&q=80');"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="join-section">
+      <div class="container join-content">
+        <h2>মানবতার কল্যাণে আমাদের সঙ্গে যুক্ত হোন</h2>
         <p>
-          স্বেচ্ছাসেবক হিসেবে যুক্ত হোন অথবা আমাদের কার্যক্রমে সহায়তা করুন।
-          মানুষের পাশে দাঁড়ানোর এই যাত্রায় আপনাকেও স্বাগতম।
+          সদস্য, স্বেচ্ছাসেবক বা শুভাকাঙ্ক্ষী হিসেবে আপনার সামর্থ্য ও সময় দিয়ে
+          অসহায় মানুষের মুখে হাসি ফোটাতে পাশে দাঁড়ান।
         </p>
 
-        <a class="btn" href="mailto:taseenbillah409@gmail.com">যোগাযোগ করুন</a>
+        <div class="hero-buttons" style="justify-content: center;">
+          <button class="btn btn-primary" onclick="showMessage('সদস্য নিবন্ধন ফিচারটি পরের ধাপে যুক্ত করা হবে।');">সদস্য হওয়ার আবেদন</button>
+          <button class="btn btn-outline" onclick="showMessage('অনুদান পেজটি পরের ধাপে যুক্ত করা হবে।');">অনুদান করুন</button>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
+  <footer class="footer" id="contact">
     <div class="container footer-grid">
       <div>
         <h3>মানবসেবা ফাউন্ডেশন</h3>
         <p>
-          মানবিকতা, সহযোগিতা ও ভালোবাসার মাধ্যমে একটি ন্যায়ভিত্তিক সমাজ গড়ার প্রত্যয়ে।
+          মানবিকতা, স্বচ্ছতা ও দায়িত্ববোধের সঙ্গে সমাজের অসহায় মানুষের পাশে
+          দাঁড়ানো আমাদের অঙ্গীকার।
         </p>
       </div>
 
       <div>
         <h3>দ্রুত লিংক</h3>
-        <a href="#about">আমাদের সম্পর্কে</a>
-        <a href="#programs">কার্যক্রম</a>
-        <a href="#notices">নোটিশ</a>
-        <a href="login.html">অফিসার লগইন</a>
+        <ul>
+          <li><a href="#about">আমাদের সম্পর্কে</a></li>
+          <li><a href="#activities">কার্যক্রম</a></li>
+          <li><a href="#notices">নোটিশ বোর্ড</a></li>
+          <li><a href="#gallery">গ্যালারি</a></li>
+        </ul>
       </div>
 
       <div>
         <h3>যোগাযোগ</h3>
-        <p>বাংলাদেশ</p>
-        <p>taseenbillah409@gmail.com</p>
+        <ul>
+          <li>📍 আপনার এলাকার ঠিকানা</li>
+          <li>📞 +880 1XXXXXXXXX</li>
+          <li>✉️ info@manobseba.org</li>
+          <li>🕘 শনিবার–বৃহস্পতিবার</li>
+        </ul>
       </div>
     </div>
 
-    <div class="container copyright">
-      <p>© ২০২৬ মানবসেবা ফাউন্ডেশন। সর্বস্বত্ব সংরক্ষিত।</p>
+    <div class="footer-bottom">
+      © <span id="current-year"></span> মানবসেবা ফাউন্ডেশন — সর্বস্বত্ব সংরক্ষিত
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase-config.js"></script>
+  <div class="search-panel" id="search-panel">
+    <div class="search-box">
+      <div class="search-box-top">
+        <input
+          id="search-input"
+          type="search"
+          placeholder="নোটিশ, কার্যক্রম বা তথ্য খুঁজুন..."
+          oninput="runSearch()"
+        />
+        <button class="close-search" onclick="closeSearch()">বন্ধ</button>
+      </div>
+
+      <div id="search-results">
+        <p class="no-result">খুঁজতে উপরে কিছু লিখুন।</p>
+      </div>
+    </div>
+  </div>
 
   <script>
-    const noticeList = document.getElementById("notice-list");
+    const searchData = [
+      {
+        title: "খাদ্য ও ত্রাণ বিতরণ",
+        text: "মানবিক সহায়তা অসহায় পরিবার দুর্যোগ ত্রাণ বিতরণ",
+        link: "#activities"
+      },
+      {
+        title: "শিক্ষার্থীদের পাশে",
+        text: "শিক্ষা সহায়তা বই বৃত্তি শিক্ষা উপকরণ",
+        link: "#activities"
+      },
+      {
+        title: "রক্তদান ও স্বাস্থ্য ক্যাম্প",
+        text: "রক্তদাতা স্বাস্থ্য চিকিৎসা ক্যাম্প",
+        link: "#activities"
+      },
+      {
+        title: "নতুন ওয়েবসাইট চালু",
+        text: "সাধারণ নোটিশ ডিজিটাল সিস্টেম সদস্য",
+        link: "#notices"
+      },
+      {
+        title: "স্বেচ্ছাসেবক সদস্য সংগ্রহ",
+        text: "সদস্য আবেদন স্বেচ্ছাসেবক নোটিশ",
+        link: "#notices"
+      },
+      {
+        title: "মানবসেবা ফাউন্ডেশন সম্পর্কে",
+        text: "পরিচিতি মিশন ভিশন মানবতা সমাজসেবা",
+        link: "#about"
+      }
+    ];
 
-    function escapeHtml(value) {
-      const element = document.createElement("div");
-      element.textContent = value || "";
-      return element.innerHTML;
-    }
+    function updateClock() {
+      const now = new Date();
 
-    function formatBanglaDate(dateValue) {
-      return new Intl.DateTimeFormat("bn-BD", {
-        day: "numeric",
+      const time = now.toLocaleTimeString("bn-BD", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true
+      });
+
+      const date = now.toLocaleDateString("bn-BD", {
+        weekday: "long",
+        year: "numeric",
         month: "long",
-        year: "numeric"
-      }).format(new Date(dateValue));
+        day: "numeric"
+      });
+
+      document.getElementById("digital-clock").textContent = time;
+      document.getElementById("bangla-date").textContent = date;
     }
 
-    async function loadPublicNotices() {
-      const { data: notices, error } = await supabaseClient
-        .from("notices")
-        .select("id, title, content, published_at")
-        .order("published_at", { ascending: false })
-        .limit(6);
+    updateClock();
+    setInterval(updateClock, 1000);
 
-      if (error) {
-        noticeList.innerHTML = `
-          <article class="notice-card">
-            <span class="notice-date">তথ্য পাওয়া যায়নি</span>
-            <h3>নোটিশ লোড করা সম্ভব হয়নি</h3>
-            <p>অনুগ্রহ করে পরে আবার চেষ্টা করুন।</p>
-          </article>
-        `;
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+
+      const isDark = document.body.classList.contains("dark");
+      document.getElementById("theme-btn").textContent = isDark ? "☀️" : "🌙";
+      localStorage.setItem("msf-theme", isDark ? "dark" : "light");
+    }
+
+    function loadTheme() {
+      const savedTheme = localStorage.getItem("msf-theme");
+
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark");
+        document.getElementById("theme-btn").textContent = "☀️";
+      }
+    }
+
+    loadTheme();
+
+    function toggleLanguage() {
+      const button = document.getElementById("language-btn");
+
+      if (button.textContent === "বাংলা") {
+        button.textContent = "English";
+        showMessage("English ভাষার পূর্ণ সংস্করণ পরের ধাপে যোগ করা হবে।");
+      } else {
+        button.textContent = "বাংলা";
+        showMessage("বাংলা ভাষা চালু আছে।");
+      }
+    }
+
+    function openSearch() {
+      document.getElementById("search-panel").style.display = "block";
+      document.getElementById("search-input").focus();
+    }
+
+    function closeSearch() {
+      document.getElementById("search-panel").style.display = "none";
+      document.getElementById("search-input").value = "";
+      document.getElementById("search-results").innerHTML =
+        '<p class="no-result">খুঁজতে উপরে কিছু লিখুন।</p>';
+    }
+
+    function runSearch() {
+      const query = document.getElementById("search-input").value
+        .trim()
+        .toLowerCase();
+
+      const resultBox = document.getElementById("search-results");
+
+      if (!query) {
+        resultBox.innerHTML = '<p class="no-result">খুঁজতে উপরে কিছু লিখুন।</p>';
         return;
       }
 
-      if (!notices || notices.length === 0) {
-        noticeList.innerHTML = `
-          <article class="notice-card">
-            <span class="notice-date">নতুন আপডেট</span>
-            <h3>এখনো কোনো নোটিশ প্রকাশ করা হয়নি</h3>
-            <p>
-              নতুন notice প্রকাশ হলে সেটি স্বয়ংক্রিয়ভাবে এখানে দেখা যাবে।
-            </p>
-          </article>
-        `;
+      const results = searchData.filter((item) =>
+        (item.title + " " + item.text).toLowerCase().includes(query)
+      );
+
+      if (!results.length) {
+        resultBox.innerHTML =
+          '<p class="no-result">কোনো ফলাফল পাওয়া যায়নি। পরে নোটিশ, সদস্য ও হিসাবের সার্চও যুক্ত হবে।</p>';
         return;
       }
 
-      noticeList.innerHTML = notices
-        .map(function (notice) {
-          return `
-            <article class="notice-card">
-              <span class="notice-date">
-                ${formatBanglaDate(notice.published_at)}
-              </span>
-
-              <h3>${escapeHtml(notice.title)}</h3>
-
-              <p>${escapeHtml(notice.content)}</p>
-            </article>
-          `;
-        })
+      resultBox.innerHTML = results
+        .map(
+          (item) => `
+            <a class="search-item" href="${item.link}" onclick="closeSearch()">
+              <strong>${item.title}</strong>
+              <span>${item.text}</span>
+            </a>
+          `
+        )
         .join("");
     }
 
-    loadPublicNotices();
+    function showMessage(message) {
+      alert(message);
+    }
+
+    document.getElementById("current-year").textContent =
+      new Date().getFullYear();
   </script>
 </body>
 </html>
