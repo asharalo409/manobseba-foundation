@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>লগইন | মানবসেবা ফাউন্ডেশন</title>
+
+  <style>
+    :root {
+      --primary: #0b6e4f;
+      --primary-dark: #07513a;
+      --light: #f4f8f6;
+      --dark: #15231d;
+      --text: #5d6b64;
+      --border: #dce7e1;
+      --danger-bg: #fff0f0;
+      --danger-text: #b42318;
+      --success-bg: #ecfdf3;
+      --success-text: #027a48;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 22px;
+      font-family: Arial, "Noto Sans Bengali", sans-serif;
+      color: var(--dark);
+      background:
+        linear-gradient(rgba(7, 81, 58, 0.83), rgba(11, 110, 79, 0.8)),
+        url("https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1600&q=80");
+      background-position: center;
+      background-size: cover;
+    }
+
+    .login-card {
+      width: min(100%, 440px);
+      padding: 38px 32px;
+      border-radius: 18px;
+      background: #ffffff;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    }
+
+    .brand {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      color: var(--primary);
+      font-size: 20px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .brand-icon {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      color: white;
+      background: var(--primary);
+    }
+
+    h1 {
+      margin-bottom: 8px;
+      font-size: 28px;
+      text-align: center;
+    }
+
+    .subtitle {
+      margin-bottom: 27px;
+      color: var(--text);
+      font-size: 15px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 17px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      outline: none;
+      font-size: 16px;
+    }
+
+    input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(11, 110, 79, 0.12);
+    }
+
+    button {
+      width: 100%;
+      margin-top: 5px;
+      padding: 13px;
+      border: 0;
+      border-radius: 9px;
+      color: white;
+      background: var(--primary);
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    button:hover {
+      background: var(--primary-dark);
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .message {
+      display: none;
+      margin: 0 0 17px;
+      padding: 11px 13px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .message.error {
+      display: block;
+      color: var(--danger-text);
+      background: var(--danger-bg);
+    }
+
+    .message.success {
+      display: block;
+      color: var(--success-text);
+      background: var(--success-bg);
+    }
+
+    .home-link {
+      display: block;
+      margin-top: 22px;
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .home-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="login-card">
+    <div class="brand">
+      <span class="brand-icon">❤</span>
+      <span>মানবসেবা ফাউন্ডেশন</span>
+    </div>
+
+    <h1>অফিসার লগইন</h1>
+
+    <p class="subtitle">
+      নোটিশ পরিচালনা করতে আপনার account দিয়ে প্রবেশ করুন।
+    </p>
+
+    <div id="message" class="message"></div>
+
+    <form id="login-form">
+      <div class="form-group">
+        <label for="email">ইমেইল ঠিকানা</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="আপনার ইমেইল লিখুন"
+          autocomplete="email"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">পাসওয়ার্ড</label>
+        <input
+          id="password"
+          type="password"
+          placeholder="আপনার পাসওয়ার্ড লিখুন"
+          autocomplete="current-password"
+          required
+        />
+      </div>
+
+      <button id="login-button" type="submit">লগইন করুন</button>
+    </form>
+
+    <a class="home-link" href="index.html">← মূল ওয়েবসাইটে ফিরে যান</a>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+
+  <script>
+    const loginForm = document.getElementById("login-form");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const loginButton = document.getElementById("login-button");
+    const messageBox = document.getElementById("message");
+
+    function showMessage(text, type) {
+      messageBox.textContent = text;
+      messageBox.className = `message ${type}`;
+    }
+
+    async function checkExistingSession() {
+      const { data } = await supabaseClient.auth.getSession();
+
+      if (data.session) {
+        window.location.href = "admin.html";
+      }
+    }
+
+    checkExistingSession();
+
+    loginForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+
+      loginButton.disabled = true;
+      loginButton.textContent = "লগইন হচ্ছে...";
+      messageBox.className = "message";
+      messageBox.textContent = "";
+
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+      if (error) {
+        showMessage("ইমেইল বা পাসওয়ার্ড সঠিক নয়। আবার চেষ্টা করুন।", "error");
+        loginButton.disabled = false;
+        loginButton.textContent = "লগইন করুন";
+        return;
+      }
+
+      const { data: profile, error: profileError } = await supabaseClient
+        .from("profiles")
+        .select("role")
+        .eq("id", data.user.id)
+        .single();
+
+      if (profileError || !profile) {
+        await supabaseClient.auth.signOut();
+        showMessage("এই account-এর অনুমতি পাওয়া যায়নি।", "error");
+        loginButton.disabled = false;
+        loginButton.textContent = "লগইন করুন";
+        return;
+      }
+
+      if (profile.role !== "admin" && profile.role !== "officer") {
+        await supabaseClient.auth.signOut();
+        showMessage("এই account দিয়ে admin বা officer panel-এ প্রবেশের অনুমতি নেই।", "error");
+        loginButton.disabled = false;
+        loginButton.textContent = "লগইন করুন";
+        return;
+      }
+
+      showMessage("লগইন সফল হয়েছে। Dashboard খোলা হচ্ছে...", "success");
+
+      setTimeout(function () {
+        window.location.href = "admin.html";
+      }, 700);
+    });
+  </script>
+</body>
+</html>
