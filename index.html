@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>মানবসেবা ফাউন্ডেশন</title>
+  <meta
+    name="description"
+    content="মানবসেবা ফাউন্ডেশন একটি সামাজিক ও মানবিক সহায়তামূলক প্রতিষ্ঠান।"
+  />
+
+  <style>
+    :root {
+      --primary: #0b6e4f;
+      --primary-dark: #07513a;
+      --secondary: #f4b400;
+      --dark: #17212b;
+      --text: #44505c;
+      --light: #f5f8f7;
+      --white: #ffffff;
+      --border: #e4ebe8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, "Noto Sans Bengali", sans-serif;
+      color: var(--dark);
+      background: var(--white);
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+    }
+
+    .topbar {
+      background: var(--primary-dark);
+      color: #eaf7f1;
+      font-size: 14px;
+      padding: 8px 0;
+    }
+
+    .topbar-content {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.97);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-content {
+      min-height: 72px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      color: var(--white);
+      background: var(--primary);
+      border-radius: 50%;
+      font-size: 20px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 22px;
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      color: var(--white);
+      background: var(--primary);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      color: var(--primary);
+      background: transparent;
+      border: 1px solid var(--primary);
+    }
+
+    .btn-outline:hover {
+      color: var(--white);
+      background: var(--primary);
+    }
+
+    .hero {
+      padding: 92px 0;
+      color: var(--white);
+      background:
+        linear-gradient(120deg, rgba(4, 73, 51, 0.93), rgba(11, 110, 79, 0.73)),
+        url("https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1600&q=80");
+      background-position: center;
+      background-size: cover;
+    }
+
+    .hero-content {
+      max-width: 720px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 6px 13px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.12);
+      font-size: 14px;
+    }
+
+    .hero h1 {
+      margin-bottom: 17px;
+      font-size: clamp(34px, 6vw, 64px);
+      line-height: 1.18;
+    }
+
+    .hero p {
+      max-width: 620px;
+      margin-bottom: 28px;
+      color: #ecf8f2;
+      font-size: 18px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero .btn-outline {
+      color: var(--white);
+      border-color: var(--white);
+    }
+
+    .hero .btn-outline:hover {
+      color: var(--primary);
+      background: var(--white);
+    }
+
+    section {
+      padding: 76px 0;
+    }
+
+    .section-heading {
+      max-width: 660px;
+      margin: 0 auto 38px;
+      text-align: center;
+    }
+
+    .section-heading span {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .section-heading h2 {
+      margin: 6px 0 10px;
+      font-size: clamp(28px, 4vw, 40px);
+    }
+
+    .section-heading p {
+      color: var(--text);
+    }
+
+    .stats {
+      margin-top: -35px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: var(--white);
+      border-radius: 14px;
+      box-shadow: 0 10px 35px rgba(23, 33, 43, 0.13);
+      overflow: hidden;
+    }
+
+    .stat {
+      padding: 24px 18px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat:last-child {
+      border-right: none;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--primary);
+      font-size: 30px;
+    }
+
+    .stat span {
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .about {
+      background: var(--light);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 54px;
+    }
+
+    .about-image {
+      min-height: 365px;
+      border-radius: 16px;
+      background:
+        linear-gradient(rgba(11, 110, 79, 0.12), rgba(11, 110, 79, 0.12)),
+        url("https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=1000&q=80");
+      background-position: center;
+      background-size: cover;
+    }
+
+    .about-text span {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .about-text h2 {
+      margin: 7px 0 16px;
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.3;
+    }
+
+    .about-text p {
+      margin-bottom: 15px;
+      color: var(--text);
+    }
+
+    .program-grid,
+    .notice-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      padding: 27px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: var(--white);
+      transition: 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(16, 57, 43, 0.1);
+    }
+
+    .card-icon {
+      display: grid;
+      place-items: center;
+      width: 54px;
+      height: 54px;
+      margin-bottom: 17px;
+      color: var(--primary);
+      border-radius: 12px;
+      background: #e7f4ed;
+      font-size: 26px;
+    }
+
+    .card h3 {
+      margin-bottom: 9px;
+      font-size: 21px;
+    }
+
+    .card p {
+      color: var(--text);
+      font-size: 15px;
+    }
+
+    .notice-section {
+      background: var(--light);
+    }
+
+    .notice-card {
+      padding: 23px;
+      border-left: 4px solid var(--primary);
+      border-radius: 8px;
+      background: var(--white);
+    }
+
+    .notice-date {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .notice-card h3 {
+      margin-bottom: 7px;
+      font-size: 18px;
+    }
+
+    .notice-card p {
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .join {
+      color: var(--white);
+      text-align: center;
+      background: var(--primary);
+    }
+
+    .join h2 {
+      margin-bottom: 12px;
+      font-size: clamp(28px, 4vw, 40px);
+    }
+
+    .join p {
+      max-width: 640px;
+      margin: 0 auto 23px;
+      color: #e9f7f0;
+    }
+
+    .join .btn {
+      color: var(--primary);
+      background: var(--white);
+    }
+
+    .footer {
+      padding: 48px 0 20px;
+      color: #d5e8df;
+      background: #122b22;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 32px;
+      padding-bottom: 30px;
+    }
+
+    .footer h3 {
+      margin-bottom: 12px;
+      color: var(--white);
+    }
+
+    .footer p,
+    .footer a {
+      color: #c1d5cc;
+      font-size: 15px;
+    }
+
+    .footer a {
+      display: block;
+      margin-bottom: 7px;
+    }
+
+    .copyright {
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      color: #a9c0b5;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    @media (max-width: 800px) {
+      .nav-links {
+        gap: 10px;
+        font-size: 13px;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stat:nth-child(2) {
+        border-right: none;
+      }
+
+      .stat:nth-child(-n+2) {
+        border-bottom: 1px solid var(--border);
+      }
+
+      .about-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .program-grid,
+      .notice-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 530px) {
+      .nav-content {
+        padding: 12px 0;
+        align-items: flex-start;
+      }
+
+      .brand {
+        font-size: 16px;
+      }
+
+      .brand-mark {
+        width: 36px;
+        height: 36px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 74px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="container topbar-content">
+      <span>মানবতার সেবায় আমরা একসাথে</span>
+      <span>ইমেইল: info@manobseba.org</span>
+    </div>
+  </div>
+
+  <header class="navbar">
+    <div class="container nav-content">
+      <a class="brand" href="#home">
+        <span class="brand-mark">❤</span>
+        <span>মানবসেবা ফাউন্ডেশন</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#home">হোম</a>
+        <a href="#about">আমাদের সম্পর্কে</a>
+        <a href="#programs">কার্যক্রম</a>
+        <a href="#notices">নোটিশ</a>
+        <a href="#contact">যোগাযোগ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-content">
+        <span class="hero-tag">মানবতা • শিক্ষা • স্বাস্থ্য • সহযোগিতা</span>
+        <h1>একটু সহায়তা বদলে দিতে পারে একটি জীবন</h1>
+        <p>
+          মানবসেবা ফাউন্ডেশন সুবিধাবঞ্চিত মানুষের পাশে দাঁড়াতে,
+          শিক্ষা ও স্বাস্থ্যসেবার সুযোগ বাড়াতে এবং একটি সুন্দর সমাজ গড়তে কাজ করে।
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#programs">আমাদের কার্যক্রম</a>
+          <a class="btn btn-outline" href="#contact">স্বেচ্ছাসেবক হোন</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat">
+            <strong>১,২০০+</strong>
+            <span>সুবিধাভোগী পরিবার</span>
+          </div>
+          <div class="stat">
+            <strong>৫০+</strong>
+            <span>স্বেচ্ছাসেবক</span>
+          </div>
+          <div class="stat">
+            <strong>২৪+</strong>
+            <span>সফল কার্যক্রম</span>
+          </div>
+          <div class="stat">
+            <strong>৮</strong>
+            <span>কর্মএলাকা</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="container about-grid">
+        <div class="about-image"></div>
+
+        <div class="about-text">
+          <span>আমাদের কথা</span>
+          <h2>মানুষের জন্য, মানুষের পাশে</h2>
+          <p>
+            মানবসেবা ফাউন্ডেশন একটি অরাজনৈতিক ও অলাভজনক সামাজিক উদ্যোগ।
+            আমরা বিশ্বাস করি—সম্মিলিত ছোট ছোট উদ্যোগও সমাজে বড় পরিবর্তন আনতে পারে।
+          </p>
+          <p>
+            আমাদের লক্ষ্য হলো দরিদ্র, অসহায় এবং পিছিয়ে পড়া মানুষদের প্রয়োজনীয়
+            সহায়তা পৌঁছে দেওয়া এবং তাদের আত্মনির্ভর হওয়ার পথ তৈরি করা।
+          </p>
+          <a class="btn btn-primary" href="#contact">আমাদের সঙ্গে যুক্ত হোন</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="programs">
+      <div class="container">
+        <div class="section-heading">
+          <span>আমাদের উদ্যোগ</span>
+          <h2>যে কাজগুলো আমরা করি</h2>
+          <p>
+            মানুষের জরুরি প্রয়োজনকে অগ্রাধিকার দিয়ে আমরা বিভিন্ন সামাজিক কার্যক্রম পরিচালনা করি।
+          </p>
+        </div>
+
+        <div class="program-grid">
+          <article class="card">
+            <div class="card-icon">🎓</div>
+            <h3>শিক্ষা সহায়তা</h3>
+            <p>
+              দরিদ্র শিক্ষার্থীদের শিক্ষা উপকরণ, বৃত্তি ও পড়াশোনার প্রয়োজনীয় সহায়তা দেওয়া।
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">❤</div>
+            <h3>স্বাস্থ্যসেবা</h3>
+            <p>
+              বিনামূল্যে স্বাস্থ্য ক্যাম্প, রক্তদান কর্মসূচি এবং প্রয়োজনীয় চিকিৎসা সহায়তা।
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">🤝</div>
+            <h3>ত্রাণ ও পুনর্বাসন</h3>
+            <p>
+              দুর্যোগ, শীত ও জরুরি পরিস্থিতিতে অসহায় পরিবারগুলোর পাশে দাঁড়ানো।
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="notice-section" id="notices">
+      <div class="container">
+        <div class="section-heading">
+          <span>সর্বশেষ তথ্য</span>
+          <h2>নোটিশ ও কার্যক্রম</h2>
+          <p>
+            পরবর্তী ধাপে এই অংশটি Supabase database থেকে স্বয়ংক্রিয়ভাবে দেখানো হবে।
+          </p>
+        </div>
+
+        <div class="notice-grid">
+          <article class="notice-card">
+            <span class="notice-date">১৫ অক্টোবর ২০২৬</span>
+            <h3>শীতবস্ত্র বিতরণ কর্মসূচি</h3>
+            <p>শীতবস্ত্র সংগ্রহ ও বিতরণে স্বেচ্ছাসেবক নিবন্ধন চলছে।</p>
+          </article>
+
+          <article class="notice-card">
+            <span class="notice-date">১০ অক্টোবর ২০২৬</span>
+            <h3>ফ্রি মেডিকেল ক্যাম্প</h3>
+            <p>বিশেষজ্ঞ চিকিৎসকদের অংশগ্রহণে বিনামূল্যে স্বাস্থ্যসেবা দেওয়া হবে।</p>
+          </article>
+
+          <article class="notice-card">
+            <span class="notice-date">০৫ অক্টোবর ২০২৬</span>
+            <h3>শিক্ষা উপকরণ বিতরণ</h3>
+            <p>অসহায় শিক্ষার্থীদের জন্য খাতা, বই ও প্রয়োজনীয় উপকরণ বিতরণ করা হবে।</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="join" id="contact">
+      <div class="container">
+        <h2>আপনার অংশগ্রহণ গুরুত্বপূর্ণ</h2>
+        <p>
+          স্বেচ্ছাসেবক হিসেবে যুক্ত হোন অথবা আমাদের কার্যক্রমে সহায়তা করুন।
+          মানুষের পাশে দাঁড়ানোর এই যাত্রায় আপনাকেও স্বাগতম।
+        </p>
+        <a class="btn" href="mailto:info@manobseba.org">যোগাযোগ করুন</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <h3>মানবসেবা ফাউন্ডেশন</h3>
+        <p>
+          মানবিকতা, সহযোগিতা ও ভালোবাসার মাধ্যমে একটি ন্যায়ভিত্তিক সমাজ গড়ার প্রত্যয়ে।
+        </p>
+      </div>
+
+      <div>
+        <h3>দ্রুত লিংক</h3>
+        <a href="#about">আমাদের সম্পর্কে</a>
+        <a href="#programs">কার্যক্রম</a>
+        <a href="#notices">নোটিশ</a>
+      </div>
+
+      <div>
+        <h3>যোগাযোগ</h3>
+        <p>বাংলাদেশ</p>
+        <p>info@manobseba.org</p>
+      </div>
+    </div>
+
+    <div class="container copyright">
+      <p>© ২০২৬ মানবসেবা ফাউন্ডেশন। সর্বস্বত্ব সংরক্ষিত।</p>
+    </div>
+  </footer>
+</body>
+</html>
